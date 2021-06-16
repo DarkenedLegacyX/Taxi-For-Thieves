@@ -15,6 +15,6 @@ public class FollowSphere : MonoBehaviour
     { 
 
         collider.rotation = player.rotation;
-        collider.position = player.position;
+        collider.position = transform.position;
     }
 }

@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public float groundRayLength = .2f;
     public Transform groundRayPoint;
 
+    public float airDrag = 1f;
+    public float groundDrag = 4f;
+
     void Start()
     {
         sphereRB.transform.parent = null;
@@ -32,24 +35,23 @@ public class PlayerController : MonoBehaviour
             speedInput = Input.GetAxis("Vertical") * reverseSpeed * 1000;
         }
 
-        turnInput = Input.GetAxis("Horizontal");
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+        RaycastHit hit;
+        grounded = Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
+        transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
+        turnInput = Input.GetAxis("Horizontal");
+        if (grounded)
+        {
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * Input.GetAxis("Vertical"), 0f)); 
+        }
         transform.position = sphereRB.transform.position;
     }
 
     private void FixedUpdate()
     {
-        grounded = false;
-        RaycastHit hit; 
-
-        if(Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
-        {
-            grounded = true;
-        }
-
         if (grounded)
         {
+            sphereRB.drag = groundDrag;
             if (Mathf.Abs(speedInput) > 0)
             {
                 sphereRB.AddForce(transform.forward * speedInput);
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
         } else
         {
             sphereRB.AddForce(Vector3.up * -gravityForce * 100f);
+            sphereRB.drag = airDrag;
         }
 
     }

@@ -1,0 +1,110 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
+
+public class Police_CS : MonoBehaviour
+{
+
+    public Transform player;
+
+    NavMeshAgent agent;
+
+    Transform spawnPoint;
+
+    public float radius;
+
+    public GameObject goingTo;
+
+
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        spawnPoint = transform;
+        StartCoroutine("FindPatrolPoint");
+    }
+
+    IEnumerator FindPatrolPoint()
+    {
+        if (LevelManager_CS.instance.playerhasCrim == true)
+        {
+
+            StartCoroutine("ChasePlayer");
+
+        }
+        else
+        {
+            Vector3 moveToPos;
+            Vector3 randomPosition = Random.insideUnitSphere * radius;
+            randomPosition += spawnPoint.position;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPosition, out hit, radius, NavMesh.AllAreas))
+            {
+                moveToPos = hit.position;
+            }
+            else
+            {
+                moveToPos = spawnPoint.position;
+                print("Not on NavMesh");
+            }
+            goingTo.transform.position = moveToPos;
+            StartCoroutine(Patrol(moveToPos));
+
+        }
+
+        /* NavMeshPath path = new NavMeshPath();
+        agent.CalculatePath(moveToPos, path);
+
+        goingTo.transform.position = moveToPos;
+        if(path.status == NavMeshPathStatus.PathComplete)
+        {
+            StartCoroutine(Patrol(moveToPos));
+
+        }
+        else
+        {
+
+            print("Reolling");
+            StartCoroutine("FindPatrolPoint");
+        }*/
+
+        yield return null;
+    }
+
+    IEnumerator Patrol(Vector3 moveToPos)
+    {
+
+        float distance = Vector3.Distance(transform.position, moveToPos);
+        agent.SetDestination(moveToPos);
+        while(distance > agent.stoppingDistance + 0.5f)
+        {
+            distance = Vector3.Distance(transform.position, moveToPos);
+            yield return new WaitForSeconds(0.1f);
+        }
+        StartCoroutine("FindPatrolPoint");
+    }
+
+    IEnumerator ChasePlayer()
+    {
+        while(LevelManager_CS.instance.playerhasCrim == true)
+        {
+            //print("Chasing!");
+            goingTo.transform.position = player.transform.position;
+            agent.SetDestination(player.transform.position);
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        print("Patrolling!");
+        StartCoroutine("FindPatrolPoint");
+
+    }
+
+
+        void Update()
+    {
+            //agent.SetDestination(player.transform.position);
+
+     }
+}

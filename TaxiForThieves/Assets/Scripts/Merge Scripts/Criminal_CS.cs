@@ -5,6 +5,7 @@ using UnityEngine;
 public class Criminal_CS : MonoBehaviour
 {
     Rigidbody rb;
+    public GameObject dropOffPoint;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class Criminal_CS : MonoBehaviour
             GameUI_CS.instance.haveCrim = true;
             GameUI_CS.instance.UpdateUI();
             gameObject.transform.position = new Vector3(0, -25, 0);
+            dropOffPoint.SendMessage("Activate");
         }
     }
 }

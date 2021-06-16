@@ -17,6 +17,8 @@ public class Police_CS : MonoBehaviour
 
     public GameObject goingTo;
 
+    public float chaseSpeed = 8f, patrolSpeed = 5f;
+
 
     void Start()
     {
@@ -49,6 +51,7 @@ public class Police_CS : MonoBehaviour
                 print("Not on NavMesh");
             }
             goingTo.transform.position = moveToPos;
+            agent.speed = patrolSpeed;
             StartCoroutine(Patrol(moveToPos));
 
         }
@@ -77,6 +80,7 @@ public class Police_CS : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, moveToPos);
         agent.SetDestination(moveToPos);
+        
         while(distance > agent.stoppingDistance + 0.5f)
         {
             distance = Vector3.Distance(transform.position, moveToPos);
@@ -90,6 +94,7 @@ public class Police_CS : MonoBehaviour
         while(LevelManager_CS.instance.playerhasCrim == true)
         {
             //print("Chasing!");
+            agent.speed = chaseSpeed;
             goingTo.transform.position = player.transform.position;
             agent.SetDestination(player.transform.position);
 

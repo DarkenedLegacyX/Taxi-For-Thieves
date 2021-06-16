@@ -8,13 +8,11 @@ public class FollowSphere : MonoBehaviour
     public Transform collider;
     void Start()
     {
-        
     }
 
     void Update()
     { 
-
         collider.rotation = player.rotation;
-        collider.position = transform.position;
+        collider.position = player.position;
     }
 }

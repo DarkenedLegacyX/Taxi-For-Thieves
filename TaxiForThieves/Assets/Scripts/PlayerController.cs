@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatIsGround;
     public float groundRayLength = .2f;
-    public Transform groundRayPoint;
 
     public float airDrag = 1f;
     public float groundDrag = 4f;
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
         }
 
         RaycastHit hit;
-        grounded = Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
+        grounded = Physics.Raycast(sphereRB.position, -transform.up, out hit, groundRayLength, whatIsGround);
         transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
         turnInput = Input.GetAxis("Horizontal");
@@ -45,6 +44,8 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * Input.GetAxis("Vertical"), 0f)); 
         }
         transform.position = sphereRB.transform.position;
+
+
     }
 
     private void FixedUpdate()

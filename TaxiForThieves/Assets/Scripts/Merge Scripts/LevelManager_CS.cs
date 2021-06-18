@@ -6,11 +6,11 @@ public class LevelManager_CS : MonoBehaviour
 {
     public static LevelManager_CS instance = null;
 
-    public Transform[] spawns;
     public GameObject crim;
     public bool playerhasCrim;
 
     public GameObject[] dropOffPoints;
+    public Transform[] spawns;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class LevelManager_CS : MonoBehaviour
 
     void Start()
     {
- 
+        SpawnACrim();
     }
 
     void Update()
@@ -42,7 +42,8 @@ public class LevelManager_CS : MonoBehaviour
 
     public void SpawnACrim()
     {
-
+        int rand = Random.Range(0, (spawns.Length - 1));
+        Instantiate(crim, spawns[rand]);
     }
 
     public GameObject GetRandomDropOff()

@@ -39,6 +39,7 @@ public class DropOffPoint : MonoBehaviour
                 print("Criminal Dropped off!");
                 Deactivate();
                 LevelManager_CS.instance.playerhasCrim = false;
+                LevelManager_CS.instance.SpawnACrim();
                 GameUI_CS.instance.haveCrim = false;
                 GameUI_CS.instance.UpdateUI();
             }

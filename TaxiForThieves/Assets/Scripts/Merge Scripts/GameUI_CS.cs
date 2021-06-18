@@ -8,6 +8,7 @@ public class GameUI_CS : MonoBehaviour
     public static GameUI_CS instance = null;
     public Text crimText;
     public bool haveCrim = false;
+    public Text errorText, livesText;
 
     private void Awake()
     {
@@ -41,5 +42,22 @@ public class GameUI_CS : MonoBehaviour
             crimText.text = "You picked up a Criminal!";
         }
 
+    }
+
+    IEnumerator ShowErrorText()
+    {
+        errorText.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(3);
+        errorText.gameObject.SetActive(false);
+    }
+
+    public void UpdateLives(int lives)
+    {
+        livesText.text = lives.ToString();
+    }
+
+    public void ShowErrorMsg()
+    {
+        StartCoroutine(ShowErrorText());
     }
 }

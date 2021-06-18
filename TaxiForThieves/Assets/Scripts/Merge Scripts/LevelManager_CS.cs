@@ -16,6 +16,8 @@ public class LevelManager_CS : MonoBehaviour
     public Transform cameraStartPosition;
     public CinemachineVirtualCamera cam;
 
+    int playerLife;
+
 
     private void Awake()
     {
@@ -35,6 +37,8 @@ public class LevelManager_CS : MonoBehaviour
     void Start()
     {
         SpawnACrim();
+        playerLife = 3;
+        GameUI_CS.instance.UpdateLives(playerLife);
     }
 
     void Update()
@@ -48,6 +52,10 @@ public class LevelManager_CS : MonoBehaviour
         {
             PlayerController.instance.ResetPosition();
             cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        }
+        if (Input.GetKey(KeyCode.O))
+        {
+            //ResetPlayerLost();
         }
     }
 
@@ -63,4 +71,12 @@ public class LevelManager_CS : MonoBehaviour
         return dropOffPoints[rand];
     }
 
+    public void ResetPlayerLost()
+    {
+        playerLife--;
+        PlayerController.instance.ResetPosition();
+        cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        GameUI_CS.instance.ShowErrorMsg();
+        GameUI_CS.instance.UpdateLives(playerLife);
+    }
 }

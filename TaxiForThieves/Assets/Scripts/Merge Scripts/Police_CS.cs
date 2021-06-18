@@ -112,4 +112,16 @@ public class Police_CS : MonoBehaviour
             //agent.SetDestination(player.transform.position);
 
      }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && LevelManager_CS.instance.playerhasCrim)
+        {
+            LevelManager_CS.instance.ResetPlayerLost();
+            LevelManager_CS.instance.playerhasCrim = false;
+            LevelManager_CS.instance.SpawnACrim();
+            GameUI_CS.instance.haveCrim = false;
+            GameUI_CS.instance.UpdateUI();
+        }
+    }
 }

@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody sphereRB;
 
+    public Transform playerStartPoint;
+
     public float forwardSpeed = 4f, reverseSpeed = 4f, turnSpeed = 180f, maxSpeed = 50f, gravityForce = 10f;
 
     private float speedInput, turnInput;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
         sphereRB.transform.parent = null;
+        ResetPosition();
     }
 
 
@@ -65,6 +68,14 @@ public class PlayerController : MonoBehaviour
             sphereRB.drag = airDrag;
         }
 
+    }
+
+    public void ResetPosition()
+    {
+        sphereRB.transform.position = playerStartPoint.position;
+        sphereRB.transform.rotation = playerStartPoint.rotation;
+        transform.position = sphereRB.transform.position;
+        transform.rotation = sphereRB.transform.rotation;
     }
 
     public void SpeedBoost()

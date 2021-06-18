@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance = null;
+
     public Rigidbody sphereRB;
 
     public float forwardSpeed = 4f, reverseSpeed = 4f, turnSpeed = 180f, maxSpeed = 50f, gravityForce = 10f;
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         sphereRB.transform.parent = null;
     }
 
@@ -62,5 +65,22 @@ public class PlayerController : MonoBehaviour
             sphereRB.drag = airDrag;
         }
 
+    }
+
+    public void SpeedBoost()
+    {
+        StartCoroutine(SpeedUpFor(5, 0.33f));
+    }
+
+    IEnumerator SpeedUpFor(int speedUpSec, float percentUp)
+    {
+        float forward = forwardSpeed * percentUp;
+        float reverse = reverseSpeed * percentUp;
+
+        forwardSpeed += forward;
+        reverseSpeed += reverse;
+        yield return new WaitForSecondsRealtime(speedUpSec);
+        forwardSpeed -= forward;
+        reverseSpeed -= reverse;
     }
 }

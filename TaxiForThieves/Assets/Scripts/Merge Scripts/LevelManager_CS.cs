@@ -10,6 +10,8 @@ public class LevelManager_CS : MonoBehaviour
     public GameObject crim;
     public bool playerhasCrim;
 
+    public GameObject[] dropOffPoints;
+
     private void Awake()
     {
         if (instance == null)
@@ -25,18 +27,27 @@ public class LevelManager_CS : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
  
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKey("escape"))
         {
             Application.Quit();
         }
+    }
+
+    public void SpawnACrim()
+    {
+
+    }
+
+    public GameObject GetRandomDropOff()
+    {
+        int rand = Random.Range(0, (dropOffPoints.Length - 1));
+        return dropOffPoints[rand];
     }
 }

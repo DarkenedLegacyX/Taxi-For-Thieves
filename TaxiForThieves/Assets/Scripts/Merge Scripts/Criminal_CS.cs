@@ -5,10 +5,11 @@ using UnityEngine;
 public class Criminal_CS : MonoBehaviour
 {
     Rigidbody rb;
-    public GameObject dropOffPoint;
+    GameObject dropOffPoint;
 
     void Start()
     {
+        dropOffPoint = LevelManager_CS.instance.GetRandomDropOff();
         rb = GetComponent<Rigidbody>();
     }
 

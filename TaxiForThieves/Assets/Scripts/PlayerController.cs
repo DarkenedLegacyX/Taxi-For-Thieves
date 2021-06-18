@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         turnInput = Input.GetAxis("Horizontal");
         if (grounded)
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * speedInput/10000, 0f)); 
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * speedInput/1000, 0f)); 
         }
         transform.position = sphereRB.transform.position;
 

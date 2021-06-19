@@ -17,6 +17,7 @@ public class LevelManager_CS : MonoBehaviour
     public CinemachineVirtualCamera cam;
 
     int playerLife;
+    int activeDropOffId;
 
 
     private void Awake()
@@ -67,8 +68,8 @@ public class LevelManager_CS : MonoBehaviour
 
     public GameObject GetRandomDropOff()
     {
-        int rand = Random.Range(0, (dropOffPoints.Length - 1));
-        return dropOffPoints[rand];
+        activeDropOffId = Random.Range(0, (dropOffPoints.Length - 1));
+        return dropOffPoints[activeDropOffId];
     }
 
     public void ResetPlayerLost()
@@ -78,5 +79,8 @@ public class LevelManager_CS : MonoBehaviour
         cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
         GameUI_CS.instance.ShowErrorMsg();
         GameUI_CS.instance.UpdateLives(playerLife);
+        dropOffPoints[activeDropOffId].SendMessage("Deactivate");
+        SpawnACrim();
     }
+
 }

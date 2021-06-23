@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Transform playerStartPoint;
 
     public float forwardSpeed = 4f, reverseSpeed = 4f, turnSpeed = 180f, maxSpeed = 50f, gravityForce = 10f;
+    public float turnDecreaseValue = 2f;
 
     private float speedInput, turnInput;
     private bool grounded;
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
         turnInput = Input.GetAxis("Horizontal");
         if (grounded)
         {
+             if (turnInput != 0)
+                 if(speedInput > 0)
+                     speedInput -= Mathf.Abs(turnInput) * 1000 * turnDecreaseValue;
+                 else if (speedInput < 0)
+                     speedInput += Mathf.Abs(turnInput) * 500 * turnDecreaseValue;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * speedInput/1000, 0f)); 
         }
         transform.position = sphereRB.transform.position;

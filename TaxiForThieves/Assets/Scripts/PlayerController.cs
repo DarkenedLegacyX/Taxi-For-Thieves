@@ -9,15 +9,17 @@ public class PlayerController : MonoBehaviour
     public Rigidbody sphereRB;
 
     public Transform playerStartPoint;
+    public Transform rayCastPoint;
 
-    public float forwardSpeed = 4f, reverseSpeed = 4f, turnSpeed = 180f, maxSpeed = 50f, gravityForce = 10f;
+    public float turnSpeed = 180f, maxSpeed = 8f, maxReverseSpeed = 4f, gravityForce = 10f;
     public float turnDecreaseValue = 2f;
+    public float velocity;
 
-    private float speedInput, turnInput;
+    public float speedInput, turnInput, speedPenalty;
     private bool grounded;
 
     public LayerMask whatIsGround;
-    public float groundRayLength = .2f;
+    public float groundRayLength = .1f;
 
     public float airDrag = 1f;
     public float groundDrag = 4f;
@@ -32,28 +34,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        velocity = sphereRB.velocity.magnitude;
+
         speedInput = 0f;
-        if(Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis("Vertical") > 0)
         {
-            speedInput = Input.GetAxis("Vertical") * forwardSpeed * 1000;
-        } else if (Input.GetAxis("Vertical") < 0)
+            speedInput = Input.GetAxis("Vertical") * maxSpeed;
+        }
+        else if (Input.GetAxis("Vertical") < 0)
         {
-            speedInput = Input.GetAxis("Vertical") * reverseSpeed * 1000;
+            speedInput = Input.GetAxis("Vertical") * maxReverseSpeed;
         }
 
         RaycastHit hit;
-        grounded = Physics.Raycast(sphereRB.position, -transform.up, out hit, groundRayLength, whatIsGround);
+        grounded = Physics.Raycast(rayCastPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
         transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
         turnInput = Input.GetAxis("Horizontal");
         if (grounded)
         {
-             if (turnInput != 0)
-                 if(speedInput > 0)
-                     speedInput -= Mathf.Abs(turnInput) * 1000 * turnDecreaseValue;
-                 else if (speedInput < 0)
-                     speedInput += Mathf.Abs(turnInput) * 500 * turnDecreaseValue;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * speedInput/1000, 0f)); 
+            speedPenalty = 1 - (Mathf.Abs(turnInput) * turnDecreaseValue * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f)); 
         }
         transform.position = sphereRB.transform.position;
 
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
             sphereRB.drag = groundDrag;
             if (Mathf.Abs(speedInput) > 0)
             {
-                sphereRB.AddForce(transform.forward * speedInput);
+                sphereRB.AddForce(transform.forward * speedInput * 1000 * speedPenalty);
             }
         } else
         {
@@ -91,13 +93,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SpeedUpFor(int speedUpSec, float percentUp)
     {
-        float forward = forwardSpeed * percentUp;
-        float reverse = reverseSpeed * percentUp;
+        //float forward = forwardSpeed * percentUp;
+        //float reverse = reverseSpeed * percentUp;
 
-        forwardSpeed += forward;
-        reverseSpeed += reverse;
+        //forwardSpeed += forward;
+        //reverseSpeed += reverse;
         yield return new WaitForSecondsRealtime(speedUpSec);
-        forwardSpeed -= forward;
-        reverseSpeed -= reverse;
+        //forwardSpeed -= forward;
+        //reverseSpeed -= reverse;
     }
 }

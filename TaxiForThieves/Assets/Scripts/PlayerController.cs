@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float velocity;
 
     public float speedInput, turnInput, speedPenalty;
-    private bool grounded;
+    bool grounded;
 
     public LayerMask whatIsGround;
     public float groundRayLength = .1f;
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit hit;
         grounded = Physics.Raycast(rayCastPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
+                
         transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
         turnInput = Input.GetAxis("Horizontal");

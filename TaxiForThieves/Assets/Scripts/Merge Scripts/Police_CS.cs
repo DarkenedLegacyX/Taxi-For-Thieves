@@ -53,7 +53,7 @@ public class Police_CS : MonoBehaviour
             else
             {
                 moveToPos = spawnPoint.position;
-                print("Not on NavMesh");
+                //print("Not on NavMesh");
             }
             goingTo.transform.position = moveToPos;
             agent.speed = patrolSpeed;

@@ -16,6 +16,8 @@ public class LevelManager_CS : MonoBehaviour
     public Transform cameraStartPosition;
     public CinemachineVirtualCamera cam;
 
+    public Transform radarRotate;
+
     int playerLife;
     int activeDropOffId;
 
@@ -58,6 +60,8 @@ public class LevelManager_CS : MonoBehaviour
         {
             //ResetPlayerLost();
         }
+
+        //radarRotate.Rotate(Vector3.one * 4 * Time.deltaTime);
     }
 
     public void SpawnACrim()

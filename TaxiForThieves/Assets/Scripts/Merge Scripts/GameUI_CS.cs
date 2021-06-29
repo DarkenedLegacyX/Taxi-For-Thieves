@@ -9,6 +9,7 @@ public class GameUI_CS : MonoBehaviour
     public Text crimText;
     public bool haveCrim = false;
     public Text errorText, livesText;
+    
 
     private void Awake()
     {

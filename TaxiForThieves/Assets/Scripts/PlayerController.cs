@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public float airDrag = 1f;
     public float groundDrag = 4f;
 
+    public bool isBoosted = false;
+
     void Start()
     {
         instance = this;
@@ -34,6 +36,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        if (isBoosted == true)
+        {
+            //print("ZOOMING");
+            maxSpeed = 15;
+        }
+        else {
+            //print("Turtle Speed Time!");
+            maxSpeed = 8;
+        }
+
 
         velocity = sphereRB.velocity.magnitude;
 
@@ -87,9 +100,10 @@ public class PlayerController : MonoBehaviour
         transform.rotation = sphereRB.transform.rotation;
     }
 
-    public void SpeedBoost()
+    public void SpeedBoost(int time)
     {
-        StartCoroutine(SpeedUpFor(5, 0.33f));
+        isBoosted = true;
+        StartCoroutine(SpeedUpFor(time, 0.33f));
     }
 
     IEnumerator SpeedUpFor(int speedUpSec, float percentUp)
@@ -100,6 +114,8 @@ public class PlayerController : MonoBehaviour
         //forwardSpeed += forward;
         //reverseSpeed += reverse;
         yield return new WaitForSecondsRealtime(speedUpSec);
+        print("Turning off boost");
+        isBoosted = false;
         //forwardSpeed -= forward;
         //reverseSpeed -= reverse;
     }

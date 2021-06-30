@@ -48,6 +48,7 @@ public class Police_CS : MonoBehaviour
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPosition, out hit, radius, NavMesh.AllAreas))
             {
+                //if()
                 moveToPos = hit.position;
             }
             else

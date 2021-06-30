@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class SpeedBoost : MonoBehaviour
 {
-
-    void Start()
-    {
-        
-    }
+    public bool isFloor;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController.instance.SpeedBoost();
-            Destroy(gameObject);
+            if (isFloor == true) {
+                print("Floor Booooooooooooooost!");
+                PlayerController.instance.SpeedBoost(1);
+            }
+            else
+            {
+                print("Powerup Booooooost!");
+                PlayerController.instance.SpeedBoost(5);
+                Destroy(gameObject);
+            }
         }
     }
 }

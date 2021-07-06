@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform playerStartPoint;
     public Transform rayCastPoint;
+    public GameObject indicator;
+    public Vector3 indicatorTarget;
 
     public float turnSpeed = 180f, maxSpeed = 8f, maxReverseSpeed = 4f, gravityForce = 10f;
     public float turnDecreaseValue = 2f;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         sphereRB.transform.parent = null;
         ResetPosition();
+        indicatorTarget = new Vector3(0, 0, 0);
     }
 
 
@@ -90,6 +93,11 @@ public class PlayerController : MonoBehaviour
             sphereRB.drag = airDrag;
         }
 
+        if(LevelManager_CS.instance.playerhasCrim)
+        {
+            Vector3 direction = indicatorTarget - indicator.transform.position;
+            indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 2.0f * Time.deltaTime);
+        }
     }
 
     public void ResetPosition()
@@ -104,6 +112,10 @@ public class PlayerController : MonoBehaviour
     {
         isBoosted = true;
         StartCoroutine(SpeedUpFor(time, 0.33f));
+    }
+    public void ActivateIndicator(bool activate)
+    {
+        indicator.SetActive(activate);
     }
 
     IEnumerator SpeedUpFor(int speedUpSec, float percentUp)

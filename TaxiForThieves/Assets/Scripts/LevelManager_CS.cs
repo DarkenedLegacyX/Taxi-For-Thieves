@@ -74,6 +74,7 @@ public class LevelManager_CS : MonoBehaviour
     public GameObject GetRandomDropOff()
     {
         activeDropOffId = Random.Range(0, (dropOffPoints.Length - 1));
+        PlayerController.instance.indicatorTarget = dropOffPoints[activeDropOffId].transform.position;
         return dropOffPoints[activeDropOffId];
     }
 
@@ -81,6 +82,7 @@ public class LevelManager_CS : MonoBehaviour
     {
         playerLife--;
         PlayerController.instance.ResetPosition();
+        PlayerController.instance.ActivateIndicator(false);
         cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
         GameUI_CS.instance.ShowErrorMsg();
         GameUI_CS.instance.UpdateLives(playerLife);

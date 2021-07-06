@@ -23,6 +23,7 @@ public class Criminal_CS : MonoBehaviour
             GameUI_CS.instance.UpdateUI();
             gameObject.transform.position = new Vector3(0, -25, 0);
             dropOffPoint.SendMessage("Activate");
+            PlayerController.instance.ActivateIndicator(true);
         }
     }
 }

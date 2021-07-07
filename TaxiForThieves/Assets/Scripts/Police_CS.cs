@@ -6,12 +6,17 @@ using UnityEngine.UI;
 
 public class Police_CS : MonoBehaviour
 {
+    [InspectorName("Transform")]
 
     public Transform player;
 
-    NavMeshAgent agent;
+    public Transform spawnPoint;
 
-    Transform spawnPoint;
+    public Vector3 spawnPLocation;
+
+    [InspectorName("Agent")]
+
+    NavMeshAgent agent;
 
     public float radius;
 
@@ -29,6 +34,7 @@ public class Police_CS : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         spawnPoint = transform;
+        spawnPLocation = spawnPoint.transform.position;
         StartCoroutine("FindPatrolPoint");
     }
 
@@ -70,8 +76,8 @@ public class Police_CS : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, moveToPos);
         agent.SetDestination(moveToPos);
-        
-        while(distance > agent.stoppingDistance + 13.5f)
+
+        while (distance > agent.stoppingDistance + 13.5f)
         {
             distance = Vector3.Distance(transform.position, moveToPos);
             yield return new WaitForSeconds(0.1f);
@@ -79,9 +85,18 @@ public class Police_CS : MonoBehaviour
         StartCoroutine("FindPatrolPoint");
     }
 
+    IEnumerator ReturnToSpawn(Vector3 spawnPoint)
+    {
+        print("Returning to spawn!");
+        float distance = Vector3.Distance(transform.position, spawnPoint);
+        agent.SetDestination(spawnPoint);
+        yield return new WaitForSeconds(10f);
+        StartCoroutine("FindPatrolPoint");
+    }
+
     IEnumerator ChasePlayer()
     {
-        while(LevelManager_CS.instance.playerhasCrim == true)
+        while (LevelManager_CS.instance.playerhasCrim == true)
         {
             //print("Chasing!");
             agent.speed = chaseSpeed;
@@ -91,8 +106,9 @@ public class Police_CS : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
 
-        print("Patrolling!");
-        StartCoroutine("FindPatrolPoint");
+        //print("Patrolling!");
+        //StartCoroutine("FindPatrolPoint");
+        StartCoroutine("ReturnToSpawn", spawnPLocation);
 
     }
 
@@ -106,35 +122,35 @@ public class Police_CS : MonoBehaviour
         Vector3 dirToMovePosition = (goingTo.transform.position - transform.position).normalized;
         float dot = Vector3.Dot(transform.forward, dirToMovePosition);
 
-            if (dot > 0)
-            {
-                // Target in front
-                forwardAmount = 1f;
+        if (dot > 0)
+        {
+            // Target in front
+            forwardAmount = 1f;
 
-                float stoppingDistance = 30f;
-                float stoppingSpeed = 20f;
-                if (distanceToTarget < stoppingDistance && carDriver.GetSpeed() > stoppingSpeed)
-                {
-                    forwardAmount = -1f;
-                }
-            }
-            else
+            float stoppingDistance = 30f;
+            float stoppingSpeed = 20f;
+            if (distanceToTarget < stoppingDistance && carDriver.GetSpeed() > stoppingSpeed)
             {
-                    forwardAmount = 1f;
-
+                forwardAmount = -1f;
             }
+        }
+        else
+        {
+            forwardAmount = 1f;
 
-            float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
+        }
 
-            if (angleToDir > 0)
-            {
-                turnAmount = 1f;
-            }
-            else
-            {
-                turnAmount = -1f;
-            }
-        
+        float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
+
+        if (angleToDir > 0)
+        {
+            turnAmount = 1f;
+        }
+        else
+        {
+            turnAmount = -1f;
+        }
+
 
         carDriver.SetInputs(forwardAmount, turnAmount);
     }
@@ -143,6 +159,8 @@ public class Police_CS : MonoBehaviour
     {
         if (other.CompareTag("Player") && LevelManager_CS.instance.playerhasCrim)
         {
+            //StopAllCoroutines();
+            StartCoroutine("ReturnToSpawn", spawnPLocation);
             LevelManager_CS.instance.ResetPlayerLost();
             LevelManager_CS.instance.playerhasCrim = false;
             GameUI_CS.instance.haveCrim = false;

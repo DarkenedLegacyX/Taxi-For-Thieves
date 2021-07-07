@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform playerStartPoint;
     public Transform rayCastPoint;
+    public Transform wheelFL, wheelFR, wheelBL, wheelBR;
     public GameObject indicator;
     public Vector3 indicatorTarget;
 
@@ -72,7 +73,10 @@ public class PlayerController : MonoBehaviour
         if (grounded)
         {
             speedPenalty = 1 - (Mathf.Abs(turnInput) * turnDecreaseValue * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f)); 
+            if(speedInput < 0)
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, -turnInput * turnSpeed * Time.deltaTime * velocity, 0f));
+            else
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f));
         }
         transform.position = sphereRB.transform.position;
 
@@ -98,6 +102,25 @@ public class PlayerController : MonoBehaviour
             Vector3 direction = indicatorTarget - indicator.transform.position;
             indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 2.0f * Time.deltaTime);
         }
+
+        if (speedInput < 0)
+        {
+            wheelFL.Rotate(-velocity * 360 * Time.deltaTime, 0, 0);
+            wheelFR.Rotate(-velocity * 360 * Time.deltaTime, 0, 0);
+            wheelBL.Rotate(-velocity * 360 * Time.deltaTime, 0, 0);
+            wheelBR.Rotate(-velocity * 360 * Time.deltaTime, 0, 0);
+        }
+        else
+        {
+            wheelFL.Rotate(velocity * 360 * Time.deltaTime, 0, 0);
+            wheelFR.Rotate(velocity * 360 * Time.deltaTime, 0, 0);
+            wheelBL.Rotate(velocity * 360 * Time.deltaTime, 0, 0);
+            wheelBR.Rotate(velocity * 360 * Time.deltaTime, 0, 0);
+        }
+
+        wheelFL.parent.transform.localEulerAngles = new Vector3(0, turnInput * 360 * 5 * Time.deltaTime, 0);
+        wheelFR.parent.transform.localEulerAngles = new Vector3(0, turnInput * 360 * 5 * Time.deltaTime, 0);
+
     }
 
     public void ResetPosition()

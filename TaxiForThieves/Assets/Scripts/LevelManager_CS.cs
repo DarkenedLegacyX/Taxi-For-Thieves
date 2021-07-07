@@ -40,7 +40,7 @@ public class LevelManager_CS : MonoBehaviour
     void Start()
     {
         SpawnACrim();
-        playerLife = 3;
+        playerLife = 1;
         GameUI_CS.instance.UpdateLives(playerLife);
     }
 
@@ -48,7 +48,7 @@ public class LevelManager_CS : MonoBehaviour
     {
         if(Input.GetKey("escape"))
         {
-            Application.Quit();
+            SceneLoader.LoadMainMenu();
         }
 
         if (Input.GetKey(KeyCode.P))
@@ -81,13 +81,24 @@ public class LevelManager_CS : MonoBehaviour
     public void ResetPlayerLost()
     {
         playerLife--;
-        PlayerController.instance.ResetPosition();
-        PlayerController.instance.ActivateIndicator(false);
-        cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
-        GameUI_CS.instance.ShowErrorMsg();
-        GameUI_CS.instance.UpdateLives(playerLife);
-        dropOffPoints[activeDropOffId].SendMessage("Deactivate");
-        SpawnACrim();
+        if (playerLife == 0)
+            StartCoroutine(GameOver());
+        else
+        {
+            PlayerController.instance.ResetPosition();
+            PlayerController.instance.ActivateIndicator(false);
+            cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+            GameUI_CS.instance.ShowErrorMsg();
+            GameUI_CS.instance.UpdateLives(playerLife);
+            dropOffPoints[activeDropOffId].SendMessage("Deactivate");
+            SpawnACrim();
+        }
     }
 
+    IEnumerator GameOver()
+    {
+        GameUI_CS.instance.ShowGameOver();
+        yield return new WaitForSecondsRealtime(5);
+        SceneLoader.LoadMainMenu();
+    }
 }

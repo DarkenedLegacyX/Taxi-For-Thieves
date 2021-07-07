@@ -8,7 +8,7 @@ public class GameUI_CS : MonoBehaviour
     public static GameUI_CS instance = null;
     public Text crimText;
     public bool haveCrim = false;
-    public Text errorText, livesText;
+    public Text errorText, livesText, gameOverText;
     
 
     private void Awake()
@@ -60,5 +60,9 @@ public class GameUI_CS : MonoBehaviour
     public void ShowErrorMsg()
     {
         StartCoroutine(ShowErrorText());
+    }
+    public void ShowGameOver()
+    {
+        gameOverText.gameObject.SetActive(true);
     }
 }

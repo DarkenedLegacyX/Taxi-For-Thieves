@@ -18,7 +18,8 @@ public class LevelManager_CS : MonoBehaviour
 
     public Transform radarRotate;
 
-    int playerLife;
+    public int playerLife;
+    int currentLives;
     int activeDropOffId;
 
 
@@ -40,7 +41,7 @@ public class LevelManager_CS : MonoBehaviour
     void Start()
     {
         SpawnACrim();
-        playerLife = 1;
+        currentLives = playerLife;
         GameUI_CS.instance.UpdateLives(playerLife);
     }
 
@@ -99,6 +100,6 @@ public class LevelManager_CS : MonoBehaviour
     {
         GameUI_CS.instance.ShowGameOver();
         yield return new WaitForSecondsRealtime(5);
-        SceneLoader.LoadMainMenu();
+        //SceneLoader.LoadMainMenu();
     }
 }

@@ -44,11 +44,11 @@ public class PlayerController : MonoBehaviour
         if (isBoosted == true)
         {
             //print("ZOOMING");
-            maxSpeed = 15;
+            maxSpeed = 23;
         }
         else {
             //print("Turtle Speed Time!");
-            maxSpeed = 8;
+            maxSpeed = 12;
         }
 
 
@@ -66,17 +66,24 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit hit;
         grounded = Physics.Raycast(rayCastPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
-                
-        transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
 
         turnInput = Input.GetAxis("Horizontal");
         if (grounded)
         {
-            speedPenalty = 1 - (Mathf.Abs(turnInput) * turnDecreaseValue * Time.deltaTime);
-            if(speedInput < 0)
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, -turnInput * turnSpeed * Time.deltaTime * velocity, 0f));
+            if (Mathf.Abs(turnInput) > 0.1f && speedInput > 0)
+            {
+                if (speedPenalty > 0.75f)
+                    speedPenalty -= (turnDecreaseValue * Time.deltaTime);
+            }
             else
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f));
+                speedPenalty = 1;
+
+            print(Mathf.Abs(turnInput) + " : " + speedPenalty);
+            
+            if(speedInput < 0)
+                transform.localEulerAngles += new Vector3(0f, -turnInput * turnSpeed * Time.deltaTime * velocity, 0f);
+            else
+                transform.localEulerAngles += new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f);
         }
         transform.position = sphereRB.transform.position;
 
@@ -89,7 +96,7 @@ public class PlayerController : MonoBehaviour
             sphereRB.drag = groundDrag;
             if (Mathf.Abs(speedInput) > 0)
             {
-                sphereRB.AddForce(transform.forward * speedInput * 1000 * speedPenalty);
+                sphereRB.AddForce(((transform.forward * speedInput) * 1000) * speedPenalty);
             }
         } else
         {

@@ -137,7 +137,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8924600338995815365}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08cff4cb49359e745a12c2e2c9cb176c, type: 3}
   m_Name: 
@@ -195,27 +195,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Height
-      value: 2.7042542
+      value: 2.9545808
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Radius
-      value: 0.48306924
+      value: 0.60926664
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Center.x
-      value: -0.02576834
+      value: 0.023028493
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Center.y
-      value: 0.36882788
+      value: -0.04000002
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Center.z
-      value: 0.07193947
+      value: 0.050842047
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738048053876228111, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228209, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: player
@@ -231,15 +235,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228209, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: chaseSpeed
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228209, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: patrolSpeed
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228210, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Speed
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228210, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Radius
@@ -287,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711476874290889857, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.152
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6757614542765098819, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: m_Enabled

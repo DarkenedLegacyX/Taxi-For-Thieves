@@ -114,45 +114,6 @@ public class Police_CS : MonoBehaviour
 
     void Update()
     {
-
-        float forwardAmount = 0f;
-        float turnAmount = 0f;
-
-        float distanceToTarget = Vector3.Distance(transform.position, goingTo.transform.position);
-        Vector3 dirToMovePosition = (goingTo.transform.position - transform.position).normalized;
-        float dot = Vector3.Dot(transform.forward, dirToMovePosition);
-
-        if (dot > 0)
-        {
-            // Target in front
-            forwardAmount = 1f;
-
-            float stoppingDistance = 30f;
-            float stoppingSpeed = 20f;
-            if (distanceToTarget < stoppingDistance && carDriver.GetSpeed() > stoppingSpeed)
-            {
-                forwardAmount = -1f;
-            }
-        }
-        else
-        {
-            forwardAmount = 1f;
-
-        }
-
-        float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
-
-        if (angleToDir > 0)
-        {
-            turnAmount = 1f;
-        }
-        else
-        {
-            turnAmount = -1f;
-        }
-
-
-        carDriver.SetInputs(forwardAmount, turnAmount);
     }
 
     private void OnTriggerEnter(Collider other)

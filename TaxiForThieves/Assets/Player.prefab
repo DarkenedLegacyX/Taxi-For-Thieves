@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3417320817307184501}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &807431692
 GameObject:
@@ -229,7 +229,7 @@ Transform:
   m_Children:
   - {fileID: 1228566942}
   m_Father: {fileID: 4812544354548545914}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121217378
 GameObject:
@@ -255,12 +255,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121217378}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.9, y: 6.86, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.9000001, y: 6.86, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 4812544354548545914}
-  m_RootOrder: 3
+  m_Father: {fileID: 3417320817307184501}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &2121217380
 SpriteRenderer:
@@ -476,7 +476,6 @@ Transform:
   - {fileID: 4812544353997498949}
   - {fileID: 4812544355169367128}
   - {fileID: 807431693}
-  - {fileID: 2121217379}
   - {fileID: 1320590214}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -549,7 +548,7 @@ Transform:
   m_LocalScale: {x: 0.93, y: 0.85, z: 1.87}
   m_Children: []
   m_Father: {fileID: 3417320817307184501}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4812544355130692618
 MeshFilter:
@@ -770,6 +769,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2121217379}
   - {fileID: 4812544355130692630}
   - {fileID: 201743839}
   - {fileID: 515740059132787772}
@@ -789,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 414190, guid: a916a44328d322240bd1aaaca22fc8a7, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 414190, guid: a916a44328d322240bd1aaaca22fc8a7, type: 3}
       propertyPath: m_LocalScale.x

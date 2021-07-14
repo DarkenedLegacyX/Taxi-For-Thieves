@@ -9,7 +9,6 @@ public class Criminal_CS : MonoBehaviour
 
     void Start()
     {
-        dropOffPoint = LevelManager_CS.instance.GetRandomDropOff();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -17,13 +16,14 @@ public class Criminal_CS : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            dropOffPoint = LevelManager_CS.instance.GetRandomDropOff();
             print("Criminal Picked up!");
             LevelManager_CS.instance.playerhasCrim = true;
             GameUI_CS.instance.haveCrim = true;
             GameUI_CS.instance.UpdateUI();
             gameObject.transform.position = new Vector3(0, 75, 0);
             dropOffPoint.SendMessage("Activate");
-            PlayerController.instance.ActivateIndicator(true);
+            //PlayerController.instance.ActivateIndicator(true);
             gameObject.SetActive(false);
         }
     }

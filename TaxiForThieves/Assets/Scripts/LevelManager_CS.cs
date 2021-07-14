@@ -69,6 +69,9 @@ public class LevelManager_CS : MonoBehaviour
     {
         int rand = Random.Range(0, (spawns.Length - 1));
         Instantiate(crim, spawns[rand]);
+
+        PlayerController.instance.indicatorTarget = spawns[rand].transform.position;
+        print("Crim location arrow.");
         //crim.transform.position = new Vector3(spawns[rand].y, 0, 0);
     }
 
@@ -78,6 +81,7 @@ public class LevelManager_CS : MonoBehaviour
         PlayerController.instance.indicatorTarget = dropOffPoints[activeDropOffId].transform.position;
         return dropOffPoints[activeDropOffId];
     }
+
 
     public void ResetPlayerLost()
     {

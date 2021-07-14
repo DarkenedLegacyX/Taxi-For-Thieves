@@ -107,7 +107,14 @@ public class PlayerController : MonoBehaviour
         if(LevelManager_CS.instance.playerhasCrim)
         {
             Vector3 direction = indicatorTarget - indicator.transform.position;
-            indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 2.0f * Time.deltaTime);
+            indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 100.0f * Time.deltaTime);
+        }
+        else
+        {
+            print("1111111");
+            Vector3 direction = indicatorTarget - indicator.transform.position;
+            //indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 100.0f * Time.deltaTime);
+            indicator.transform.rotation = Quaternion.LookRotation(direction);
         }
 
         if (speedInput < 0)

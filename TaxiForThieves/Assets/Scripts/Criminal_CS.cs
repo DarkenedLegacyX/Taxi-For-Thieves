@@ -21,9 +21,10 @@ public class Criminal_CS : MonoBehaviour
             LevelManager_CS.instance.playerhasCrim = true;
             GameUI_CS.instance.haveCrim = true;
             GameUI_CS.instance.UpdateUI();
-            gameObject.transform.position = new Vector3(0, -25, 0);
+            gameObject.transform.position = new Vector3(0, 75, 0);
             dropOffPoint.SendMessage("Activate");
             PlayerController.instance.ActivateIndicator(true);
+            gameObject.SetActive(false);
         }
     }
 }

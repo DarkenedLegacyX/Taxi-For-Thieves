@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         sphereRB.transform.parent = null;
         ResetPosition();
-        indicatorTarget = new Vector3(0, 0, 0);
+        //indicatorTarget = new Vector3(0, 0, 0);
     }
 
 

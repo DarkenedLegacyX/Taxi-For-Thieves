@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     bool grounded;
 
     public LayerMask whatIsGround;
-    public float groundRayLength = .1f;
+    float groundRayLength = .1f;
 
     public float airDrag = 1f;
     public float groundDrag = 4f;
@@ -32,23 +32,13 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-
+        instance = this;
     }
     void Start()
     {
         sphereRB.transform.parent = null;
         ResetPosition();
-        indicatorTarget = new Vector3(0, 0, 0);
+        //indicatorTarget = new Vector3(0, 0, 0);
     }
 
 

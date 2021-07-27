@@ -104,6 +104,7 @@ public class LevelManager_CS : MonoBehaviour
         currentCrimIndex++;
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;
+        GameUI_CS.instance.StartTimer(30);
         GameUI_CS.instance.UpdateUI();
         GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
     }
@@ -116,19 +117,21 @@ public class LevelManager_CS : MonoBehaviour
         GameUI_CS.instance.haveCrim = false;
         GameUI_CS.instance.UpdateUI();
         GameUI_CS.instance.SetCrimSliderAt(0);
+        GameUI_CS.instance.StopTimer();
         GameUI_CS.instance.SetIconToGreen(currentCrimIndex - 1);
     }
 
     public void ResetPlayerLost()
     {
-            PlayerController.instance.ResetPosition();
-            //PlayerController.instance.ActivateIndicator(false);
-            cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
-            GameUI_CS.instance.ShowErrorMsg();
-            GameUI_CS.instance.SetCrimSliderAt(0);
-            GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
-            dropOffPoints[activeDropOffId].SendMessage("Deactivate");
-            SpawnACrim();
+        GameUI_CS.instance.StopTimer();
+        PlayerController.instance.ResetPosition();
+        //PlayerController.instance.ActivateIndicator(false);
+        cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        GameUI_CS.instance.ShowErrorMsg();
+        GameUI_CS.instance.SetCrimSliderAt(0);
+        GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
+        dropOffPoints[activeDropOffId].SendMessage("Deactivate");
+        SpawnACrim();
     }
 
     IEnumerator GameOver()

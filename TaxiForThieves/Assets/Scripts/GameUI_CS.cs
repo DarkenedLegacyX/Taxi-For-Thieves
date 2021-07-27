@@ -9,9 +9,11 @@ public class GameUI_CS : MonoBehaviour
     public Text crimText;
     public bool haveCrim = false;
     public Text errorText, goalText, droppedOffTxt, gameOverText;
+    public Text minutesTimerTxt, secondsTimerTxt;
     public Sprite iconCrimBw, iconCrimYellow;
     public GameObject[] crimIcons;
     public Slider crimSlider;
+    public GameObject timer;
     
 
     private void Awake()
@@ -108,5 +110,28 @@ public class GameUI_CS : MonoBehaviour
     {
         if (iconIndex < crimIcons.Length)
             crimIcons[iconIndex].GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+    }
+    public void StartTimer(int seconds)
+    {
+        secondsTimerTxt.text = seconds.ToString();
+        timer.SetActive(true);
+        StartCoroutine("TimerCountDown", seconds);
+    }
+    public void StopTimer()
+    {
+        timer.SetActive(false);
+        StopCoroutine("TimerCountDown");
+    }
+
+    IEnumerator TimerCountDown(int seconds)
+    {
+        while(seconds > 0)
+        {
+            yield return new WaitForSecondsRealtime(1);
+            seconds--;
+            secondsTimerTxt.text = seconds.ToString();
+        }
+        yield return new WaitForSecondsRealtime(1);
+        timer.SetActive(false);
     }
 }

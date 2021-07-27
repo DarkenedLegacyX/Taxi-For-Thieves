@@ -8,7 +8,10 @@ public class GameUI_CS : MonoBehaviour
     public static GameUI_CS instance = null;
     public Text crimText;
     public bool haveCrim = false;
-    public Text errorText, livesText, gameOverText;
+    public Text errorText, goalText, droppedOffTxt, gameOverText;
+    public Sprite iconCrimBw, iconCrimYellow;
+    public GameObject[] crimIcons;
+    public Slider crimSlider;
     
 
     private void Awake()
@@ -24,11 +27,10 @@ public class GameUI_CS : MonoBehaviour
 
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         UpdateUI();
+        crimSlider.value = 0;
     }
 
     public void UpdateUI()
@@ -52,9 +54,10 @@ public class GameUI_CS : MonoBehaviour
         errorText.gameObject.SetActive(false);
     }
 
-    public void UpdateLives(int lives)
+    public void UpdateCrimsCounter(int crimsDropedOff, int crimsTarget)
     {
-        livesText.text = lives.ToString();
+        droppedOffTxt.text = crimsDropedOff.ToString();
+        goalText.text = crimsTarget.ToString();
     }
 
     public void ShowErrorMsg()
@@ -64,5 +67,39 @@ public class GameUI_CS : MonoBehaviour
     public void ShowGameOver()
     {
         gameOverText.gameObject.SetActive(true);
+    }
+
+    public void SetCrimSliderAt(int crim)
+    {
+        if (crim > crimIcons.Length + 1) 
+            crim = crimIcons.Length + 1;
+
+        if(crim == 0)
+        {
+            crimSlider.transform.GetChild(2).gameObject.SetActive(false);
+            foreach(GameObject crimIcon in crimIcons)
+            {
+                crimIcon.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+        }  
+        else
+        {
+            crimSlider.transform.GetChild(2).gameObject.SetActive(true);
+            crimSlider.value = crim - 1;
+            crimIcons[crim - 1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
+            
+    }
+
+    public void SetIconToGreen(int iconIndex)
+    {
+        if (iconIndex < crimIcons.Length)
+            crimIcons[iconIndex].GetComponent<Image>().color = new Color32(0, 255,16, 255);
+    }
+
+    public void SetIconToRed(int iconIndex)
+    {
+        if (iconIndex < crimIcons.Length)
+            crimIcons[iconIndex].GetComponent<Image>().color = new Color32(255, 0, 0, 255);
     }
 }

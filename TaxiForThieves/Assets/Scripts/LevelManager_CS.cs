@@ -18,9 +18,11 @@ public class LevelManager_CS : MonoBehaviour
 
     public Transform radarRotate;
 
+    public int totalNumberOfCrims;
     public int playerLife;
-    int currentLives;
     int activeDropOffId;
+
+    int currentCrimIndex;
 
 
     private void Awake()
@@ -40,9 +42,9 @@ public class LevelManager_CS : MonoBehaviour
 
     void Start()
     {
+        currentCrimIndex = 0;
         SpawnACrim();
-        currentLives = playerLife;
-        GameUI_CS.instance.UpdateLives(playerLife);
+        GameUI_CS.instance.SetCrimSliderAt(0);
     }
 
     void Update()
@@ -82,6 +84,23 @@ public class LevelManager_CS : MonoBehaviour
         return dropOffPoints[activeDropOffId];
     }
 
+    public void CrimPickedUp()
+    {
+        currentCrimIndex++;
+        playerhasCrim = true;
+        GameUI_CS.instance.haveCrim = true;
+        GameUI_CS.instance.UpdateUI();
+        GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
+    }
+    public void CrimDroppedOff()
+    {
+        playerhasCrim = false;
+        SpawnACrim();
+        GameUI_CS.instance.haveCrim = false;
+        GameUI_CS.instance.UpdateUI();
+        GameUI_CS.instance.SetCrimSliderAt(0);
+        GameUI_CS.instance.SetIconToGreen(currentCrimIndex - 1);
+    }
 
     public void ResetPlayerLost()
     {
@@ -94,7 +113,9 @@ public class LevelManager_CS : MonoBehaviour
             PlayerController.instance.ActivateIndicator(false);
             cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
             GameUI_CS.instance.ShowErrorMsg();
-            GameUI_CS.instance.UpdateLives(playerLife);
+            //GameUI_CS.instance.UpdateLives(playerLife);
+            GameUI_CS.instance.SetCrimSliderAt(0);
+            GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
             dropOffPoints[activeDropOffId].SendMessage("Deactivate");
             SpawnACrim();
         }

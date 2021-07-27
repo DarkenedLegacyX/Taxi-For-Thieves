@@ -125,7 +125,6 @@ public class Police_CS : MonoBehaviour
             LevelManager_CS.instance.ResetPlayerLost();
             LevelManager_CS.instance.playerhasCrim = false;
             GameUI_CS.instance.haveCrim = false;
-            GameUI_CS.instance.UpdateUI();
         }
     }
 }

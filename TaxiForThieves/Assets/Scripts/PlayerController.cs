@@ -19,7 +19,9 @@ public class PlayerController : MonoBehaviour
     public float velocity;
 
     public float speedInput, turnInput, speedPenalty;
+    public GameObject loot;
     bool grounded;
+    
 
     public LayerMask whatIsGround;
     public float groundRayLength = .1f;
@@ -181,5 +183,35 @@ public class PlayerController : MonoBehaviour
         isBoosted = false;
         //forwardSpeed -= forward;
         //reverseSpeed -= reverse;
+    }
+
+    public void DropSomeLoot(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            StartCoroutine("DropLoot");
+        }
+    }
+
+    IEnumerator DropLoot()
+    {
+        yield return new WaitForSecondsRealtime(Random.Range(0f, 1f));
+        GameObject newLoot = Instantiate(loot, transform.position, transform.rotation, this.transform);
+        yield return null;
+
+        float t = 0;
+        float duration = Random.Range(1f, 3f);
+        Vector3 randomPos = new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
+        Vector3 height = new Vector3(0, Random.Range(0.1f, 0.4f), 0);
+
+        while (t < 1)
+        {
+            if (newLoot != null)
+            {
+                newLoot.transform.localPosition = Vector3.Lerp(newLoot.transform.localPosition + height, randomPos, t);
+                t += Time.deltaTime * duration;
+            }
+            yield return null;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,11 @@ public class GameUI_CS : MonoBehaviour
     public bool haveCrim = false;
     public Text errorText, goalText, droppedOffTxt, gameOverText;
     public Text minutesTimerTxt, secondsTimerTxt;
-    public Sprite iconCrimBw, iconCrimYellow;
+    public Text pointsTxt;
     public GameObject[] crimIcons;
     public Slider crimSlider;
     public GameObject timer;
+    int playerPoints;
     
 
     private void Awake()
@@ -31,21 +33,11 @@ public class GameUI_CS : MonoBehaviour
 
     void Start()
     {
-        UpdateUI();
         crimSlider.value = 0;
     }
 
-    public void UpdateUI()
+    void FixedUpdate()
     {
-
-        if(haveCrim == false)
-        {
-            crimText.text = "You Have not picked up a Criminal";
-        }
-        else
-        {
-            crimText.text = "You picked up a Criminal!";
-        }
 
     }
 
@@ -62,6 +54,21 @@ public class GameUI_CS : MonoBehaviour
             return;
         droppedOffTxt.text = crimsDropedOff.ToString();
         goalText.text = crimsTarget.ToString();
+    }
+    public IEnumerator UpdatePointsCounter(int pointsFinal, float duration)
+    {
+        float time = 0;
+        int startValue = playerPoints;
+
+        while (time < duration)
+        {
+            playerPoints = (int)Mathf.Lerp(startValue, pointsFinal, time/ duration);
+            pointsTxt.text = playerPoints.ToString();
+            time += Time.deltaTime;
+            yield return null;
+        }
+        playerPoints = pointsFinal;
+        pointsTxt.text = playerPoints.ToString();
     }
 
     public void ShowErrorMsg()
@@ -117,10 +124,11 @@ public class GameUI_CS : MonoBehaviour
         timer.SetActive(true);
         StartCoroutine("TimerCountDown", seconds);
     }
-    public void StopTimer()
+    public int StopTimer()
     {
         timer.SetActive(false);
         StopCoroutine("TimerCountDown");
+        return Convert.ToInt32(secondsTimerTxt.text);
     }
 
     IEnumerator TimerCountDown(int seconds)

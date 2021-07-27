@@ -25,6 +25,7 @@ public class LevelManager_CS : MonoBehaviour
     int currentCrimIndex;
     int crimsRemaining;
     int crimsDroppedOff;
+    public int playerPoints;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class LevelManager_CS : MonoBehaviour
         crimsRemaining = totalNumberOfCrims;
         currentCrimIndex = 0;
         crimsDroppedOff = 0;
+        playerPoints = 0;
         GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
@@ -65,9 +67,10 @@ public class LevelManager_CS : MonoBehaviour
             PlayerController.instance.ResetPosition();
             cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
         }
-        if (Input.GetKey(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            //ResetPlayerLost();
+            AddPoints(100);
+            PlayerController.instance.DropSomeLoot(7);
         }
 
         //radarRotate.Rotate(Vector3.one * 4 * Time.deltaTime);
@@ -105,17 +108,16 @@ public class LevelManager_CS : MonoBehaviour
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;
         GameUI_CS.instance.StartTimer(30);
-        GameUI_CS.instance.UpdateUI();
         GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
     }
     public void CrimDroppedOff()
     {
+        AddPoints(100);
         crimsDroppedOff++;
         GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         playerhasCrim = false;
         SpawnACrim();
         GameUI_CS.instance.haveCrim = false;
-        GameUI_CS.instance.UpdateUI();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GameUI_CS.instance.StopTimer();
         GameUI_CS.instance.SetIconToGreen(currentCrimIndex - 1);
@@ -132,6 +134,11 @@ public class LevelManager_CS : MonoBehaviour
         GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
         dropOffPoints[activeDropOffId].SendMessage("Deactivate");
         SpawnACrim();
+    }
+    void AddPoints(int pointsToAdd)
+    {
+        playerPoints += pointsToAdd;
+        StartCoroutine(GameUI_CS.instance.UpdatePointsCounter(playerPoints, 2.0f));
     }
 
     IEnumerator GameOver()

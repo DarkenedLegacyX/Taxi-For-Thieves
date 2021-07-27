@@ -19,7 +19,6 @@ public class FinishLine_CS : MonoBehaviour
                 print("Criminal Dropped off!");
                 LevelManager_CS.instance.playerhasCrim = false;
                 GameUI_CS.instance.haveCrim = false;
-                GameUI_CS.instance.UpdateUI();
                 //gameObject.transform.position = new Vector3(0, -25, 0);
             }
             else

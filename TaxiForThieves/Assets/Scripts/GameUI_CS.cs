@@ -56,6 +56,8 @@ public class GameUI_CS : MonoBehaviour
 
     public void UpdateCrimsCounter(int crimsDropedOff, int crimsTarget)
     {
+        if (crimsDropedOff > crimsTarget)
+            return;
         droppedOffTxt.text = crimsDropedOff.ToString();
         goalText.text = crimsTarget.ToString();
     }
@@ -66,6 +68,11 @@ public class GameUI_CS : MonoBehaviour
     }
     public void ShowGameOver()
     {
+        gameOverText.gameObject.SetActive(true);
+    }
+    public void ShowGameWin()
+    {
+        gameOverText.text = "Win!";
         gameOverText.gameObject.SetActive(true);
     }
 

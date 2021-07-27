@@ -18,12 +18,13 @@ public class LevelManager_CS : MonoBehaviour
 
     public Transform radarRotate;
 
-    public int totalNumberOfCrims;
-    public int playerLife;
+    public int totalNumberOfCrims = 9;
+    public int goalNuberOfCrims;
     int activeDropOffId;
 
     int currentCrimIndex;
-
+    int crimsRemaining;
+    int crimsDroppedOff;
 
     private void Awake()
     {
@@ -42,7 +43,12 @@ public class LevelManager_CS : MonoBehaviour
 
     void Start()
     {
+        if (totalNumberOfCrims > 9)
+            totalNumberOfCrims = 9;
+        crimsRemaining = totalNumberOfCrims;
         currentCrimIndex = 0;
+        crimsDroppedOff = 0;
+        GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
     }
@@ -69,6 +75,14 @@ public class LevelManager_CS : MonoBehaviour
 
     public void SpawnACrim()
     {
+        if(crimsRemaining == 0)
+        {
+            if (crimsDroppedOff >= goalNuberOfCrims)
+                GameWin();
+            else
+                GameOver();
+        }
+
         int rand = Random.Range(0, (spawns.Length - 1));
         Instantiate(crim, spawns[rand]);
 
@@ -86,6 +100,7 @@ public class LevelManager_CS : MonoBehaviour
 
     public void CrimPickedUp()
     {
+        crimsRemaining--;
         currentCrimIndex++;
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;
@@ -94,6 +109,8 @@ public class LevelManager_CS : MonoBehaviour
     }
     public void CrimDroppedOff()
     {
+        crimsDroppedOff++;
+        GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         playerhasCrim = false;
         SpawnACrim();
         GameUI_CS.instance.haveCrim = false;
@@ -104,21 +121,14 @@ public class LevelManager_CS : MonoBehaviour
 
     public void ResetPlayerLost()
     {
-        playerLife--;
-        if (playerLife == 0)
-            StartCoroutine(GameOver());
-        else
-        {
             PlayerController.instance.ResetPosition();
-            PlayerController.instance.ActivateIndicator(false);
+            //PlayerController.instance.ActivateIndicator(false);
             cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
             GameUI_CS.instance.ShowErrorMsg();
-            //GameUI_CS.instance.UpdateLives(playerLife);
             GameUI_CS.instance.SetCrimSliderAt(0);
             GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
             dropOffPoints[activeDropOffId].SendMessage("Deactivate");
             SpawnACrim();
-        }
     }
 
     IEnumerator GameOver()
@@ -126,5 +136,10 @@ public class LevelManager_CS : MonoBehaviour
         GameUI_CS.instance.ShowGameOver();
         yield return new WaitForSecondsRealtime(5);
         //SceneLoader.LoadMainMenu();
+    }
+
+    void GameWin()
+    {
+        GameUI_CS.instance.ShowGameWin();
     }
 }

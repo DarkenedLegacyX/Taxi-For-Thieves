@@ -797,7 +797,7 @@ MonoBehaviour:
   cam: {fileID: 527323104}
   radarRotate: {fileID: 0}
   totalNumberOfCrims: 9
-  goalNuberOfCrims: 0
+  goalNuberOfCrims: 5
   timerMinPickupSec: 45
   timerMaxSecPickupSec: 45
 --- !u!4 &20116468

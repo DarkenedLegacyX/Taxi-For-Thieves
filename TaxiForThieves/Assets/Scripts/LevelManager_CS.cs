@@ -113,14 +113,14 @@ public class LevelManager_CS : MonoBehaviour
     }
     public void CrimDroppedOff()
     {
-        AddPoints(100);
         crimsDroppedOff++;
         GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         playerhasCrim = false;
         SpawnACrim();
         GameUI_CS.instance.haveCrim = false;
         GameUI_CS.instance.SetCrimSliderAt(0);
-        GameUI_CS.instance.StopTimer();
+        int remainingTime = GameUI_CS.instance.StopTimer();
+        AddPoints(100 + remainingTime * 2);
         GameUI_CS.instance.SetIconToGreen(currentCrimIndex - 1);
     }
 

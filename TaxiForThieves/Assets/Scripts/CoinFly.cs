@@ -28,7 +28,7 @@ public class CoinFly : MonoBehaviour
         while (t < 1)
         {
             transform.localPosition = Vector3.Lerp(posA, posB, Mathf.SmoothStep(0, 1, t));
-            t += Time.deltaTime * 2;
+            t += Time.deltaTime;
             yield return null;
         }
         Destroy(gameObject);

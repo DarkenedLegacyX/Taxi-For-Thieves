@@ -196,22 +196,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator DropLoot()
     {
         yield return new WaitForSecondsRealtime(Random.Range(0f, 1f));
-        GameObject newLoot = Instantiate(loot, transform.position, transform.rotation, this.transform);
+        Instantiate(loot, transform.position + new Vector3(0, 1, -0.5f), transform.rotation, this.transform);
         yield return null;
-
-        float t = 0;
-        float duration = Random.Range(1f, 3f);
-        Vector3 randomPos = new Vector3(Random.Range(-1.5f, 1.5f), 0, Random.Range(-1.5f, 1.5f));
-        Vector3 height = new Vector3(0, Random.Range(0.1f, 0.4f), 0);
-
-        while (t < 1)
-        {
-            if (newLoot != null)
-            {
-                newLoot.transform.localPosition = Vector3.Lerp(newLoot.transform.localPosition + height, randomPos, t);
-                t += Time.deltaTime * duration;
-            }
-            yield return null;
-        }
     }
 }

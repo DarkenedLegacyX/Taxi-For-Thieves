@@ -9,6 +9,7 @@ public class LevelManager_CS : MonoBehaviour
 
     public GameObject crim;
     public bool playerhasCrim;
+    public bool timeRestrictionOn;
 
     public GameObject[] dropOffPoints;
     public Transform[] spawns;
@@ -25,7 +26,8 @@ public class LevelManager_CS : MonoBehaviour
     int currentCrimIndex;
     int crimsRemaining;
     int crimsDroppedOff;
-    public int playerPoints;
+    int playerPoints;
+    public int timerMinPickupSec, timerMaxSecPickupSec;
 
     private void Awake()
     {
@@ -70,7 +72,6 @@ public class LevelManager_CS : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             AddPoints(100);
-            PlayerController.instance.DropSomeLoot(7);
         }
 
         //radarRotate.Rotate(Vector3.one * 4 * Time.deltaTime);
@@ -107,7 +108,7 @@ public class LevelManager_CS : MonoBehaviour
         currentCrimIndex++;
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;
-        GameUI_CS.instance.StartTimer(30);
+        GameUI_CS.instance.StartTimer(Random.Range(timerMinPickupSec, timerMaxSecPickupSec));
         GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
     }
     public void CrimDroppedOff()
@@ -138,6 +139,7 @@ public class LevelManager_CS : MonoBehaviour
     void AddPoints(int pointsToAdd)
     {
         playerPoints += pointsToAdd;
+        PlayerController.instance.DropSomeLoot(7);
         StartCoroutine(GameUI_CS.instance.UpdatePointsCounter(playerPoints, 2.0f));
     }
 
@@ -151,5 +153,16 @@ public class LevelManager_CS : MonoBehaviour
     void GameWin()
     {
         GameUI_CS.instance.ShowGameWin();
+    }
+    public void TimeOver()
+    {
+        if(timeRestrictionOn)
+        {
+            GameUI_CS.instance.ShowErrorMsg();
+            GameUI_CS.instance.SetCrimSliderAt(0);
+            GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
+            dropOffPoints[activeDropOffId].SendMessage("Deactivate");
+            SpawnACrim();
+        }
     }
 }

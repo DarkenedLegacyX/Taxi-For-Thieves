@@ -121,14 +121,15 @@ public class GameUI_CS : MonoBehaviour
     public void StartTimer(int seconds)
     {
         secondsTimerTxt.text = seconds.ToString();
-        timer.SetActive(true);
         StartCoroutine("TimerCountDown", seconds);
     }
     public int StopTimer()
     {
-        timer.SetActive(false);
+        int remaining;
         StopCoroutine("TimerCountDown");
-        return Convert.ToInt32(secondsTimerTxt.text);
+        remaining = Convert.ToInt32(secondsTimerTxt.text);
+        secondsTimerTxt.text = "00";
+        return remaining;
     }
 
     IEnumerator TimerCountDown(int seconds)
@@ -137,9 +138,13 @@ public class GameUI_CS : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1);
             seconds--;
-            secondsTimerTxt.text = seconds.ToString();
+            if(seconds < 10)
+                secondsTimerTxt.text = "0" + seconds.ToString();
+            else
+                secondsTimerTxt.text = seconds.ToString();
         }
         yield return new WaitForSecondsRealtime(1);
-        timer.SetActive(false);
+        secondsTimerTxt.text = "00";
+
     }
 }

@@ -27,6 +27,7 @@ public class LevelManager_CS : MonoBehaviour
     int crimsRemaining;
     int crimsDroppedOff;
     int playerPoints;
+    public bool crimModel;
     public int timerMinPickupSec, timerMaxSecPickupSec;
 
     private void Awake()
@@ -89,6 +90,7 @@ public class LevelManager_CS : MonoBehaviour
 
         int rand = Random.Range(0, (spawns.Length - 1));
         Instantiate(crim, spawns[rand]);
+        crimModel = !crimModel;
 
         PlayerController.instance.indicatorTarget = spawns[rand].transform.position;
         print("Crim location arrow.");

@@ -6,11 +6,23 @@ public class Criminal_CS : MonoBehaviour
 {
     Rigidbody rb;
     GameObject dropOffPoint;
+    public GameObject model1, model2;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (LevelManager_CS.instance.crimModel)
+        {
+            model1.SetActive(true);
+            model2.SetActive(false);
+        }
+        else
+        {
+            model2.SetActive(true);
+            model1.SetActive(false);
+        }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

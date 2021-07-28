@@ -10309,7 +10309,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7755778, y: 1}
+    m_SensorSize: {x: 1.7793766, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10325,7 +10325,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527323103}
-  m_LocalRotation: {x: 0.42307088, y: 0.36934146, z: -0.19428487, w: 0.8042707}
+  m_LocalRotation: {x: 0.42307088, y: 0.36934143, z: -0.19428484, w: 0.8042707}
   m_LocalPosition: {x: -0.7434287, y: 17, z: -7.168486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -11592,7 +11592,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7755778, y: 1}
+    m_SensorSize: {x: 1.7793766, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -16654,7 +16654,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861656905}
-  m_LocalRotation: {x: 0.42307088, y: 0.36934146, z: -0.19428487, w: 0.8042707}
+  m_LocalRotation: {x: 0.42307088, y: 0.36934143, z: -0.19428484, w: 0.8042707}
   m_LocalPosition: {x: -0.7434287, y: 17, z: -7.168486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -21900,7 +21900,7 @@ RectTransform:
   m_GameObject: {fileID: 1181527175}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.52, z: 1}
   m_Children: []
   m_Father: {fileID: 1765948060}
   m_RootOrder: 3
@@ -21930,7 +21930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 4d4579c86ebef854586d7a1531e501f8, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -27055,7 +27055,7 @@ RectTransform:
   m_GameObject: {fileID: 1443514732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1765948060}
   m_RootOrder: 2
@@ -27085,7 +27085,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: c22581951e2c2e5448f2dae9870e54d2, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -42782,7 +42782,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1749, y: -270}
+  m_AnchoredPosition: {x: 1742, y: -270}
   m_SizeDelta: {x: 247.461, y: 96.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8135155551072954579

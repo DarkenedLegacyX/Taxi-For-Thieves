@@ -11,7 +11,6 @@ public class LevelManager_CS : MonoBehaviour
     public bool playerhasCrim;
     public bool timeRestrictionOn;
 
-    public GameObject[] dropOffPoints;
     public Transform[] spawns;
 
     public Transform cameraStartPosition;
@@ -21,7 +20,7 @@ public class LevelManager_CS : MonoBehaviour
 
     public int totalNumberOfCrims = 9;
     public int goalNuberOfCrims;
-    int activeDropOffId;
+    GameObject currentDropOff;
 
     int currentCrimIndex;
     int crimsRemaining;
@@ -88,20 +87,17 @@ public class LevelManager_CS : MonoBehaviour
                 GameOver();
         }
 
-        int rand = Random.Range(0, (spawns.Length - 1));
-        Instantiate(crim, spawns[rand]);
+        Instantiate(crim, spawns[currentCrimIndex]);
         crimModel = !crimModel;
 
-        PlayerController.instance.indicatorTarget = spawns[rand].transform.position;
+        PlayerController.instance.indicatorTarget = spawns[currentCrimIndex].transform.position;
         print("Crim location arrow.");
-        //crim.transform.position = new Vector3(spawns[rand].y, 0, 0);
     }
 
-    public GameObject GetRandomDropOff()
+    public GameObject GetDropOff()
     {
-        activeDropOffId = Random.Range(0, (dropOffPoints.Length - 1));
-        PlayerController.instance.indicatorTarget = dropOffPoints[activeDropOffId].transform.position;
-        return dropOffPoints[activeDropOffId];
+        currentDropOff = spawns[currentCrimIndex].transform.GetChild(0).gameObject;
+        return currentDropOff;
     }
 
     public void CrimPickedUp()
@@ -111,6 +107,7 @@ public class LevelManager_CS : MonoBehaviour
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;
         GameUI_CS.instance.StartTimer(Random.Range(timerMinPickupSec, timerMaxSecPickupSec));
+        PlayerController.instance.indicatorTarget = currentDropOff.transform.position;
         GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
     }
     public void CrimDroppedOff()
@@ -135,7 +132,7 @@ public class LevelManager_CS : MonoBehaviour
         GameUI_CS.instance.ShowErrorMsg();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
-        dropOffPoints[activeDropOffId].SendMessage("Deactivate");
+        currentDropOff.SendMessage("Deactivate");
         SpawnACrim();
     }
     void AddPoints(int pointsToAdd)
@@ -163,7 +160,7 @@ public class LevelManager_CS : MonoBehaviour
             GameUI_CS.instance.ShowErrorMsg();
             GameUI_CS.instance.SetCrimSliderAt(0);
             GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
-            dropOffPoints[activeDropOffId].SendMessage("Deactivate");
+            currentDropOff.SendMessage("Deactivate");
             SpawnACrim();
         }
     }

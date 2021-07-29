@@ -11,6 +11,8 @@ public class Criminal_CS : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        dropOffPoint = LevelManager_CS.instance.GetDropOff();
+
         if (LevelManager_CS.instance.crimModel)
         {
             model1.SetActive(true);
@@ -27,8 +29,7 @@ public class Criminal_CS : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
-            dropOffPoint = LevelManager_CS.instance.GetRandomDropOff();
+        { 
             print("Criminal Picked up!");
             LevelManager_CS.instance.CrimPickedUp();
             gameObject.transform.position = new Vector3(0, 75, 0);

@@ -23,7 +23,7 @@ public class LevelManager_CS : MonoBehaviour
     GameObject currentDropOff;
 
     int currentCrimIndex;
-    int crimsRemaining;
+    public int crimsRemaining;
     int crimsDroppedOff;
     int playerPoints;
     public bool crimModel;
@@ -79,13 +79,14 @@ public class LevelManager_CS : MonoBehaviour
 
     public void SpawnACrim()
     {
-        if(crimsRemaining == 0)
+        if (crimsRemaining == 0)
         {
             if (crimsDroppedOff >= goalNuberOfCrims)
                 GameWin();
             else
                 GameOver();
         }
+        crimsRemaining--;
 
         Instantiate(crim, spawns[currentCrimIndex]);
         crimModel = !crimModel;
@@ -102,7 +103,6 @@ public class LevelManager_CS : MonoBehaviour
 
     public void CrimPickedUp()
     {
-        crimsRemaining--;
         currentCrimIndex++;
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;

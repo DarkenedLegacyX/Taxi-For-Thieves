@@ -806,8 +806,9 @@ MonoBehaviour:
   cameraStartPosition: {fileID: 2019979956}
   cam: {fileID: 527323104}
   radarRotate: {fileID: 0}
-  totalNumberOfCrims: 9
+  totalNumberOfCrims: 2
   goalNuberOfCrims: 5
+  crimsRemaining: 0
   crimModel: 0
   timerMinPickupSec: 45
   timerMaxSecPickupSec: 45

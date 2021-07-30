@@ -34,17 +34,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else if (instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
 
-        DontDestroyOnLoad(gameObject);
-
+        //DontDestroyOnLoad(gameObject);
+        instance = this;
     }
     void Start()
     {
@@ -57,16 +57,22 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+
+
+    }
+
+    private void FixedUpdate()
+    {
         if (isBoosted == true)
         {
             //print("ZOOMING");
             maxSpeed = 23;
         }
-        else {
+        else
+        {
             //print("Turtle Speed Time!");
             maxSpeed = 12;
         }
-
 
         velocity = sphereRB.velocity.magnitude;
 
@@ -95,18 +101,14 @@ public class PlayerController : MonoBehaviour
                 speedPenalty = 1;
 
             print(Mathf.Abs(turnInput) + " : " + speedPenalty);
-            
-            if(speedInput < 0)
+
+            if (speedInput < 0)
                 transform.localEulerAngles += new Vector3(0f, -turnInput * turnSpeed * Time.deltaTime * velocity, 0f);
             else
                 transform.localEulerAngles += new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f);
         }
         transform.position = sphereRB.transform.position;
 
-    }
-
-    private void FixedUpdate()
-    {
         if (grounded)
         {
             sphereRB.drag = groundDrag;

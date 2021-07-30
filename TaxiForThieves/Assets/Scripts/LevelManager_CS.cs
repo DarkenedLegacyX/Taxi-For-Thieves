@@ -8,6 +8,8 @@ public class LevelManager_CS : MonoBehaviour
     public static LevelManager_CS instance = null;
 
     public GameObject crim;
+    Transform[] copsSpawnPoints;
+    Transform[] cops;
     public bool playerhasCrim;
     public bool timeRestrictionOn;
 
@@ -29,19 +31,21 @@ public class LevelManager_CS : MonoBehaviour
     public bool crimModel;
     public int timerMinPickupSec, timerMaxSecPickupSec;
 
+    bool gamePaused;
+
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else if (instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
 
-        DontDestroyOnLoad(gameObject);
-
+        //DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
     void Start()
@@ -52,9 +56,11 @@ public class LevelManager_CS : MonoBehaviour
         currentCrimIndex = 0;
         crimsDroppedOff = 0;
         playerPoints = 0;
+        gamePaused = false;
         GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
+        GetCops();
     }
 
     void Update()
@@ -64,17 +70,54 @@ public class LevelManager_CS : MonoBehaviour
             SceneLoader.LoadMainMenu();
         }
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.I) && !gamePaused)
         {
             PlayerController.instance.ResetPosition();
             cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O) && !gamePaused)
         {
             AddPoints(100);
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (gamePaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
 
         //radarRotate.Rotate(Vector3.one * 4 * Time.deltaTime);
+    }
+    void PauseGame()
+    {
+        GameUI_CS.instance.FreezeTimer(true);
+        GameUI_CS.instance.PauseUi(true);
+        gamePaused = true;
+        Time.timeScale = 0;
+    }
+    void ResumeGame()
+    {
+        GameUI_CS.instance.FreezeTimer(false);
+        GameUI_CS.instance.PauseUi(false);
+        gamePaused = false;
+        Time.timeScale = 1;
+    }
+    void ReStartLevel()
+    {
+        if (totalNumberOfCrims > 9)
+            totalNumberOfCrims = 9;
+        crimsRemaining = totalNumberOfCrims;
+        currentCrimIndex = 0;
+        crimsDroppedOff = 0;
+        playerPoints = 0;
+        GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
+        SpawnACrim();
+        GameUI_CS.instance.SetCrimSliderAt(0);
+        GameUI_CS.instance.ResetIconsColor();
+        PlayerController.instance.ResetPosition();
+        cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        ResetCopsStartPoints();
     }
 
     public void SpawnACrim()
@@ -140,6 +183,36 @@ public class LevelManager_CS : MonoBehaviour
         playerPoints += pointsToAdd;
         PlayerController.instance.DropSomeLoot(7);
         StartCoroutine(GameUI_CS.instance.UpdatePointsCounter(playerPoints, 2.0f));
+    }
+
+    void ResetCopsStartPoints()
+    {
+        if (cops.Length > copsSpawnPoints.Length)
+            print("Not enough cops spawn points");
+        else
+        {
+            for (int i = 0; i < cops.Length; i++)
+            {
+                cops[i].position = copsSpawnPoints[i].position;
+                cops[i].rotation = copsSpawnPoints[i].rotation;
+            }
+        }
+    }
+    void GetCops()
+    {
+        GameObject allCops = GameObject.Find("Cops");
+        cops = new Transform[allCops.transform.childCount];
+        for(int i =0; i < allCops.transform.childCount; i++)
+        {
+            cops[i] = allCops.transform.GetChild(i);
+        }
+
+        allCops = GameObject.Find("CopsSpawnPoints");
+        copsSpawnPoints = new Transform[allCops.transform.childCount];
+        for (int i = 0; i < allCops.transform.childCount; i++)
+        {
+            copsSpawnPoints[i] = allCops.transform.GetChild(i);
+        }
     }
 
     IEnumerator GameOver()

@@ -15,6 +15,7 @@ public class GameUI_CS : MonoBehaviour
     public GameObject[] crimIcons;
     public Slider crimSlider;
     public GameObject timer;
+    public GameObject pausePanel;
     int playerPoints;
     
 
@@ -118,6 +119,13 @@ public class GameUI_CS : MonoBehaviour
         if (iconIndex < crimIcons.Length)
             crimIcons[iconIndex].GetComponent<Image>().color = new Color32(255, 0, 0, 255);
     }
+    public void ResetIconsColor()
+    {
+        foreach(GameObject icon in crimIcons)
+        {
+            icon.GetComponent<Image>().color = new Color32(0, 0, 0, 255);
+        }
+    }
     public void StartTimer(int seconds)
     {
         secondsTimerTxt.text = seconds.ToString();
@@ -145,6 +153,16 @@ public class GameUI_CS : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(1);
         secondsTimerTxt.text = "00";
-
+    }
+    public void FreezeTimer(bool frozen)
+    {
+        if(frozen)
+            StopCoroutine("TimerCountDown");
+        else
+            StartCoroutine("TimerCountDown", Convert.ToInt32(secondsTimerTxt.text));
+    }
+    public void PauseUi(bool paused)
+    {
+        pausePanel.SetActive(paused);
     }
 }

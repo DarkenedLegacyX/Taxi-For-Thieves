@@ -125,9 +125,9 @@ public class LevelManager_CS : MonoBehaviour
         if (crimsRemaining == 0)
         {
             if (crimsDroppedOff >= goalNuberOfCrims)
-                GameWin();
+                StartCoroutine("GameWin");
             else
-                GameOver();
+                StartCoroutine("GameOver");
         }
         crimsRemaining--;
 
@@ -219,12 +219,14 @@ public class LevelManager_CS : MonoBehaviour
     {
         GameUI_CS.instance.ShowGameOver();
         yield return new WaitForSecondsRealtime(5);
-        //SceneLoader.LoadMainMenu();
+        SceneLoader.LoadMainMenu();
     }
 
-    void GameWin()
+    IEnumerator GameWin()
     {
         GameUI_CS.instance.ShowGameWin();
+        yield return new WaitForSecondsRealtime(5);
+        SceneLoader.LoadMainMenu();
     }
     public void TimeOver()
     {

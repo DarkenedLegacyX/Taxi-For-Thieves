@@ -56,13 +56,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
-
-
-    }
-
-    private void FixedUpdate()
-    {
         if (isBoosted == true)
         {
             //print("ZOOMING");
@@ -108,7 +101,10 @@ public class PlayerController : MonoBehaviour
                 transform.localEulerAngles += new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * velocity, 0f);
         }
         transform.position = sphereRB.transform.position;
+    }
 
+    private void FixedUpdate()
+    {
         if (grounded)
         {
             sphereRB.drag = groundDrag;

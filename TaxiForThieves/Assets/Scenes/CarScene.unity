@@ -10722,7 +10722,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773585, y: 1}
+    m_SensorSize: {x: 1.7757788, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12035,7 +12035,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773585, y: 1}
+    m_SensorSize: {x: 1.7757788, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -31432,7 +31432,7 @@ MonoBehaviour:
   turnSpeed: 15
   maxSpeed: 8
   maxReverseSpeed: 6
-  gravityForce: 10
+  gravityForce: 80
   turnDecreaseValue: 0.5
   velocity: 0
   speedInput: 0
@@ -31442,7 +31442,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
-  groundRayLength: 3
+  groundRayLength: 0.1
   airDrag: 3
   groundDrag: 8
   isBoosted: 0

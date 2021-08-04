@@ -6,31 +6,38 @@ using UnityEngine;
 public class LevelManager_CS : MonoBehaviour
 {
     public static LevelManager_CS instance = null;
-
+    [Header("CRIM")]
     public GameObject crim;
-    Transform[] copsSpawnPoints;
-    Transform[] cops;
+    GameObject currentDropOff;
+    public Transform[] spawns;
     public bool playerhasCrim;
     public bool timeRestrictionOn;
-
-    public Transform[] spawns;
-
-    public Transform cameraStartPosition;
-    public CinemachineVirtualCamera cam;
-
-    public Transform radarRotate;
-
+    public bool crimModel;
     public int totalNumberOfCrims = 9;
     public int goalNuberOfCrims;
-    GameObject currentDropOff;
-
     int currentCrimIndex;
     public int crimsRemaining;
     int crimsDroppedOff;
-    int playerPoints;
-    public bool crimModel;
     public int timerMinPickupSec, timerMaxSecPickupSec;
 
+    [Header("COP")]
+    Transform[] copsSpawnPoints;
+    Transform[] cops;
+
+    [Header("CAM")]
+    public Transform cameraStartPosition;
+    public CinemachineVirtualCamera cam;
+
+    [Header("RADAR")]
+    public Transform radarRotate;
+
+    [Header("POWERUP")]
+    public bool mudPower;
+    public bool disguisePower;
+    public bool speedPower;
+
+    [Header("OTHER")]
+    int playerPoints;
     bool gamePaused;
 
     private void Awake()
@@ -65,7 +72,7 @@ public class LevelManager_CS : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey("escape"))
+        if (Input.GetKey("escape"))
         {
             SceneLoader.LoadMainMenu();
         }
@@ -86,8 +93,29 @@ public class LevelManager_CS : MonoBehaviour
             else
                 PauseGame();
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (mudPower == true)
+            {
+                print("Used mud!");
+                Powerup_CS.instance.isCollected = false;
+            }
+            if (speedPower == true)
+            {
+                print("Used speed!");
+                Powerup_CS.instance.isCollected = false;
+            }
+            if (disguisePower == true)
+            {
+                print("Used Diguise!");
+                Powerup_CS.instance.isCollected = false;
+            }
+            else
+            {
+                print("No Powa");
+            }
+        }
 
-        //radarRotate.Rotate(Vector3.one * 4 * Time.deltaTime);
     }
     void PauseGame()
     {
@@ -202,7 +230,7 @@ public class LevelManager_CS : MonoBehaviour
     {
         GameObject allCops = GameObject.Find("Cops");
         cops = new Transform[allCops.transform.childCount];
-        for(int i =0; i < allCops.transform.childCount; i++)
+        for (int i = 0; i < allCops.transform.childCount; i++)
         {
             cops[i] = allCops.transform.GetChild(i);
         }
@@ -230,7 +258,7 @@ public class LevelManager_CS : MonoBehaviour
     }
     public void TimeOver()
     {
-        if(timeRestrictionOn)
+        if (timeRestrictionOn)
         {
             GameUI_CS.instance.ShowErrorMsg();
             GameUI_CS.instance.SetCrimSliderAt(0);

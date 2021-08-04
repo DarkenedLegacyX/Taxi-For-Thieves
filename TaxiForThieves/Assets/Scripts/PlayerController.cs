@@ -21,7 +21,12 @@ public class PlayerController : MonoBehaviour
     public float speedInput, turnInput, speedPenalty;
     public GameObject loot;
     bool grounded;
-    
+
+    [Header("POWERUP")]
+    public GameObject mudObject;
+    public bool mudPower;
+    public bool disguisePower;
+    public bool speedPower;
 
     public LayerMask whatIsGround;
     public float groundRayLength = .1f;
@@ -79,6 +84,36 @@ public class PlayerController : MonoBehaviour
             speedInput = Input.GetAxis("Vertical") * maxReverseSpeed;
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (mudPower == true)
+            {
+                Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                print("Used mud!");
+                Powerup_CS.instance.isCollected = false;
+                mudPower = false;
+
+            }
+            if (speedPower == true)
+            {
+                Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                print("Used speed!");
+                PlayerController.instance.SpeedBoost(5);
+                Powerup_CS.instance.isCollected = false;
+                speedPower = false;
+            }
+            if (disguisePower == true)
+            {
+                Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                print("Used Diguise!");
+                Powerup_CS.instance.isCollected = false;
+                disguisePower = false;
+            }
+            else
+            {
+                print("No Powa");
+            }
+        }
         RaycastHit hit;
         grounded = Physics.Raycast(rayCastPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
 
@@ -93,7 +128,7 @@ public class PlayerController : MonoBehaviour
             else
                 speedPenalty = 1;
 
-            print(Mathf.Abs(turnInput) + " : " + speedPenalty);
+            //print(Mathf.Abs(turnInput) + " : " + speedPenalty);
 
             if (speedInput < 0)
                 transform.localEulerAngles += new Vector3(0f, -turnInput * turnSpeed * Time.deltaTime * velocity, 0f);
@@ -112,13 +147,14 @@ public class PlayerController : MonoBehaviour
             {
                 sphereRB.AddForce(((transform.forward * speedInput) * 1000) * speedPenalty);
             }
-        } else
+        }
+        else
         {
             sphereRB.AddForce(Vector3.up * -gravityForce * 100f);
             sphereRB.drag = airDrag;
         }
 
-        if(LevelManager_CS.instance.playerhasCrim)
+        if (LevelManager_CS.instance.playerhasCrim)
         {
             Vector3 direction = indicatorTarget - indicator.transform.position;
             indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 100.0f * Time.deltaTime);

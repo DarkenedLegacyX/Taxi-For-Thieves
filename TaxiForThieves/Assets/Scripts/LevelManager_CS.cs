@@ -31,10 +31,7 @@ public class LevelManager_CS : MonoBehaviour
     [Header("RADAR")]
     public Transform radarRotate;
 
-    [Header("POWERUP")]
-    public bool mudPower;
-    public bool disguisePower;
-    public bool speedPower;
+
 
     [Header("OTHER")]
     int playerPoints;
@@ -93,28 +90,7 @@ public class LevelManager_CS : MonoBehaviour
             else
                 PauseGame();
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (mudPower == true)
-            {
-                print("Used mud!");
-                Powerup_CS.instance.isCollected = false;
-            }
-            if (speedPower == true)
-            {
-                print("Used speed!");
-                Powerup_CS.instance.isCollected = false;
-            }
-            if (disguisePower == true)
-            {
-                print("Used Diguise!");
-                Powerup_CS.instance.isCollected = false;
-            }
-            else
-            {
-                print("No Powa");
-            }
-        }
+
 
     }
     void PauseGame()

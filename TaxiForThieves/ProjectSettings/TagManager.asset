@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Crim
   - FinishLine
+  - Cop
   layers:
   - Default
   - TransparentFX

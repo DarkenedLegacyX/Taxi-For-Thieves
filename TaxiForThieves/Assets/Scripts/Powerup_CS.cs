@@ -24,25 +24,25 @@ public class Powerup_CS : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(isCollected == false)
+            if (isCollected == false)
             {
                 ranNum = Random.Range(1, 101);
-                if(ranNum >= 1 && ranNum <= 20)
+                if (ranNum >= 1 && ranNum <= 20)
                 {
                     print("Disguise!");
-                    LevelManager_CS.instance.disguisePower = true;
+                    PlayerController.instance.disguisePower = true;
                     Destroy(gameObject);
                 }
-                else if(ranNum >= 21 && ranNum <= 60)
+                else if (ranNum >= 21 && ranNum <= 60)
                 {
                     print("Speed!");
-                    LevelManager_CS.instance.speedPower = true;
+                    PlayerController.instance.speedPower = true;
                     Destroy(gameObject);
                 }
                 else if (ranNum >= 61 && ranNum <= 100)
                 {
                     print("Mud!");
-                    LevelManager_CS.instance.mudPower = true;
+                    PlayerController.instance.mudPower = true;
                     Destroy(gameObject);
                 }
                 else
@@ -57,7 +57,7 @@ public class Powerup_CS : MonoBehaviour
                 print("Powerup, already picked up!");
             }
 
-            
+
         }
     }
 }

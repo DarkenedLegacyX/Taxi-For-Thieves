@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Police_CS : MonoBehaviour
 {
+    public static Police_CS instance = null;
     [InspectorName("Transform")]
 
     public Transform player;
@@ -22,12 +23,20 @@ public class Police_CS : MonoBehaviour
 
     public GameObject goingTo;
 
-    public float chaseSpeed = 8f, patrolSpeed = 5f;
+    public float chaseSpeed, patrolSpeed;
 
     private DrivingCops carDriver;
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
         carDriver = GetComponent<DrivingCops>();
     }
     void Start()

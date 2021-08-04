@@ -6083,7 +6083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1116768920525960, guid: 1159beb8cfd79dc4ab116b885c144aa0, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 4835568985845834, guid: 1159beb8cfd79dc4ab116b885c144aa0, type: 3}
       propertyPath: m_RootOrder
@@ -6140,6 +6140,10 @@ PrefabInstance:
     - target: {fileID: 4835568985845834, guid: 1159beb8cfd79dc4ab116b885c144aa0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624586295426312135, guid: 1159beb8cfd79dc4ab116b885c144aa0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1159beb8cfd79dc4ab116b885c144aa0, type: 3}
@@ -10365,7 +10369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499846646}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.9, z: 29.4}
+  m_LocalPosition: {x: 0, y: 21, z: 29.4}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1287289160}
@@ -10933,7 +10937,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7821437, y: 1}
+    m_SensorSize: {x: 1.777512, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10949,8 +10953,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527323103}
-  m_LocalRotation: {x: 0.45261645, y: 0.36187965, z: -0.2078529, w: 0.78802204}
-  m_LocalPosition: {x: -3.01891, y: 25, z: -9.123528}
+  m_LocalRotation: {x: 0.4980201, y: -0.011073061, z: 0.0063600377, w: 0.8670715}
+  m_LocalPosition: {x: 10.357519, y: 24.5, z: 6.004566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1252020764}
@@ -12256,7 +12260,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7821437, y: 1}
+    m_SensorSize: {x: 1.777512, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12273,7 +12277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607720328}
   m_LocalRotation: {x: 0.47599816, y: 0.000000021400002, z: -0.000000011582698, w: 0.87944627}
-  m_LocalPosition: {x: 7.6, y: 16.310001, z: -10}
+  m_LocalPosition: {x: 10, y: 15.81, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 406081154}
@@ -13553,29 +13557,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Tile_Cube_Water_01
       objectReference: {fileID: 0}
-    - target: {fileID: 1836606757422230, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1836606757422230, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 4836665099317672, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4836665099317672, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4836665099317672, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.005
-      objectReference: {fileID: 0}
-    - target: {fileID: 4836665099317672, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4836665099317672, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17839,8 +17823,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861656905}
-  m_LocalRotation: {x: 0.45261645, y: 0.36187965, z: -0.2078529, w: 0.78802204}
-  m_LocalPosition: {x: -3.01891, y: 25, z: -9.123528}
+  m_LocalRotation: {x: 0.4980201, y: -0.011073061, z: 0.0063600377, w: 0.8670715}
+  m_LocalPosition: {x: 10.357519, y: 24.5, z: 6.004566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 939356271}
@@ -18670,7 +18654,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 1296
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: c36678cd2c4a63a489a6f5ccae06ce36, type: 2}
   m_TargetDisplay: 1
@@ -22927,6 +22911,10 @@ PrefabInstance:
       value: SM_Tile_Cube_Water_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1836606757422230, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1836606757422230, guid: 25b815859b3bf794eb017f32db2313f1, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -25875,8 +25863,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287289159}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 499846647}
@@ -32089,7 +32077,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698887969}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.6, y: 1, z: 0}
+  m_LocalPosition: {x: 10, y: 0.5, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 406975488}
@@ -42010,7 +41998,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4812544354663052602}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.86, z: 0}
+  m_LocalPosition: {x: 0, y: 6.86, z: -2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7900814282299534637}

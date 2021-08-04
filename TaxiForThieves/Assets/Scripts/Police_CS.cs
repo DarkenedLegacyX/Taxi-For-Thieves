@@ -49,7 +49,7 @@ public class Police_CS : MonoBehaviour
         else
         {
             Vector3 moveToPos;
-            Vector3 randomPosition = Random.insideUnitSphere * radius;
+            Vector3 randomPosition = transform.position + Random.insideUnitSphere * radius;
             //randomPosition += spawnPoint.position;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPosition, out hit, radius, NavMesh.AllAreas))

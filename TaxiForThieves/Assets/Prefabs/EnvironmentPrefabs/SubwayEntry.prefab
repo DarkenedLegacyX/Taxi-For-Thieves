@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!65 &1496134121414885653
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25266055864001409}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7666197, y: 0.96473575, z: 4.942321}
+  m_Center: {x: 2.3859763, y: 1.0253586, z: -2.4234538}
+--- !u!1 &8038723458780203866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109058765890750949}
+  m_Layer: 0
+  m_Name: SubwayEntry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1109058765890750949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038723458780203866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 25266055863848825}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &25266055863937129
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1109058765890750949}
+    m_Modifications:
+    - target: {fileID: 452368, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 452368, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 452368, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0000009238719
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 64306471218688532, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64613576787112232, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64862560282178554, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64230790777460900, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64910104768158672, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64929313937251558, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64929141026496984, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+    - {fileID: 64604281731411826, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+--- !u!1 &25266055864001409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 199656, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+  m_PrefabInstance: {fileID: 25266055863937129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &25266055863848825 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 452368, guid: 0a1ef06f1467ffd46a6adc09d47a1d40, type: 3}
+  m_PrefabInstance: {fileID: 25266055863937129}
+  m_PrefabAsset: {fileID: 0}

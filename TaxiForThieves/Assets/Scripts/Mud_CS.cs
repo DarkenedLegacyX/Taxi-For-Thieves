@@ -25,7 +25,7 @@ public class Mud_CS : MonoBehaviour
         if (other.CompareTag("Cop"))
         {
             print("SPEEDING UP");
-            Police_CS.instance.chaseSpeed = 14;
+            Police_CS.instance.chaseSpeed = 16;
         }
 
     }

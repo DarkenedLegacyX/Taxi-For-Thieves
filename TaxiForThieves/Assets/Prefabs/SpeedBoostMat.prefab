@@ -8,11 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6540355072669450919}
+  - component: {fileID: 739666468471739517}
   - component: {fileID: 6540355072669450914}
   - component: {fileID: 6540355072669450917}
   - component: {fileID: 6540355072669450916}
   - component: {fileID: 6540355072669450915}
+  - component: {fileID: 973885232871650792}
   m_Layer: 7
   m_Name: SpeedBoostMat
   m_TagString: Untagged
@@ -20,20 +21,25 @@ GameObject:
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &6540355072669450919
-Transform:
+--- !u!224 &739666468471739517
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6540355072669450918}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.1, y: 0.12164736, z: 16.5}
-  m_LocalScale: {x: 3, y: 0.01, z: 6}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 16.5}
+  m_LocalScale: {x: 6, y: 0.01, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 13.1, y: 0.12164736}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &6540355072669450914
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -62,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc08f2319fb15fc4c9b62641bbfc6320, type: 2}
+  - {fileID: 2100000, guid: 57d5e58f11455eb4dadafd9c809a757a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +101,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 30, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6540355072669450915
 MonoBehaviour:
@@ -110,3 +116,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFloor: 1
+--- !u!222 &973885232871650792
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540355072669450918}
+  m_CullTransparentMesh: 1

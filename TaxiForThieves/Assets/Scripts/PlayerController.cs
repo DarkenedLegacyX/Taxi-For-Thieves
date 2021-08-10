@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mudObject;
     public bool mudPower;
     public bool disguisePower;
+    public MeshRenderer[] playerCarMesh;
     public bool speedPower;
 
     public LayerMask whatIsGround;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public float groundDrag = 4f;
 
     public bool isBoosted = false;
+    public GameObject trail;
 
 
     private void Awake()
@@ -65,11 +67,13 @@ public class PlayerController : MonoBehaviour
         {
             //print("ZOOMING");
             maxSpeed = 23;
+            trail.GetComponent<TrailRenderer>().time = 0.2f;
         }
         else
         {
             //print("Turtle Speed Time!");
             maxSpeed = 12;
+            trail.GetComponent<TrailRenderer>().time = 0f;
         }
 
         velocity = sphereRB.velocity.magnitude;
@@ -88,26 +92,33 @@ public class PlayerController : MonoBehaviour
         {
             if (mudPower == true)
             {
+                
                 Instantiate(mudObject, this.transform.position, this.transform.rotation);
                 print("Used mud!");
                 Powerup_CS.instance.isCollected = false;
                 mudPower = false;
-
+                //StartCoroutine("ActivateDisguise");
             }
             if (speedPower == true)
             {
-                Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                //Instantiate(mudObject, this.transform.position, this.transform.rotation);
                 print("Used speed!");
                 PlayerController.instance.SpeedBoost(5);
                 Powerup_CS.instance.isCollected = false;
                 speedPower = false;
+                //StartCoroutine("ActivateDisguise");
             }
-            if (disguisePower == true)
+            if (disguisePower == true && LevelManager_CS.instance.playerhasCrim == true)
             {
-                Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                //Instantiate(mudObject, this.transform.position, this.transform.rotation);
                 print("Used Diguise!");
                 Powerup_CS.instance.isCollected = false;
                 disguisePower = false;
+                StartCoroutine("ActivateDisguise");
+            }
+            else if(disguisePower == true && LevelManager_CS.instance.playerhasCrim == false)
+            {
+                print("Cops must chase you!");
             }
             else
             {
@@ -157,15 +168,36 @@ public class PlayerController : MonoBehaviour
         if (LevelManager_CS.instance.playerhasCrim)
         {
             Vector3 direction = indicatorTarget - indicator.transform.position;
+            float dist = Vector3.Distance(indicatorTarget, indicator.transform.position);
+            if(dist < 40)
+            {
+                indicator.SetActive(false);
+            }
+            else
+            {
+                indicator.SetActive(true);
+            }
             indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 100.0f * Time.deltaTime);
         }
         else
         {
-            print("1111111");
+            //print("1111111");
             Vector3 direction = indicatorTarget - indicator.transform.position;
+            float dist = Vector3.Distance(indicatorTarget, indicator.transform.position);
+            if (dist < 40)
+            {
+                indicator.SetActive(false);
+            }
+            else
+            {
+                indicator.SetActive(true);
+            }
             //indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, Quaternion.LookRotation(direction), 100.0f * Time.deltaTime);
             indicator.transform.rotation = Quaternion.LookRotation(direction);
         }
+
+        
+        
 
         if (speedInput < 0)
         {
@@ -232,5 +264,37 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSecondsRealtime(Random.Range(0f, 1f));
         Instantiate(loot, transform.position + new Vector3(0, 1, -0.5f), transform.rotation, this.transform);
         yield return null;
+    }
+
+    IEnumerator ActivateDisguise()
+    {
+        LevelManager_CS.instance.playerhasCrim = false;
+        
+        for(int i = 0; i < playerCarMesh.Length; i++)
+        {
+            playerCarMesh[i].enabled = false;
+        }
+
+        float disguiseTime = 10;
+        while (disguiseTime >= 1)
+        {
+            yield return new WaitForSeconds(1);
+
+            disguiseTime--;
+            //Converting timer to minutes and seconds
+            float seconds = Mathf.FloorToInt(disguiseTime % 60);
+
+            //print(currentTime);
+
+            //Making a String Format.
+            GameUI_CS.instance.disguiseTimer.text = seconds.ToString();
+        }
+
+        for (int i = 0; i < playerCarMesh.Length; i++)
+        {
+            playerCarMesh[i].enabled = true;
+        }
+        //yield return new WaitForSecondsRealtime(10f);
+        LevelManager_CS.instance.playerhasCrim = true;
     }
 }

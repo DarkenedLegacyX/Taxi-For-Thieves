@@ -20,9 +20,11 @@ public class Powerup_CS : MonoBehaviour
         }
 
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        
+        if (other.CompareTag("Powerup"))
         {
             if (isCollected == false)
             {
@@ -31,24 +33,28 @@ public class Powerup_CS : MonoBehaviour
                 {
                     print("Disguise!");
                     PlayerController.instance.disguisePower = true;
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
+                    StartCoroutine(Respawn(other));
                 }
                 else if (ranNum >= 21 && ranNum <= 60)
                 {
                     print("Speed!");
                     PlayerController.instance.speedPower = true;
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
+                    StartCoroutine(Respawn(other));
                 }
                 else if (ranNum >= 61 && ranNum <= 100)
                 {
                     print("Mud!");
                     PlayerController.instance.mudPower = true;
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
+                    StartCoroutine(Respawn(other));
                 }
                 else
                 {
                     print("What?");
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
+                    StartCoroutine(Respawn(other));
                 }
                 isCollected = true;
             }
@@ -59,5 +65,13 @@ public class Powerup_CS : MonoBehaviour
 
 
         }
+    }
+    IEnumerator Respawn(Collider other)
+    {
+        other.gameObject.SetActive(false);
+        print("Off!");
+        yield return new WaitForSeconds(30f);
+        print("On!");
+        other.gameObject.SetActive(true);
     }
 }

@@ -12,6 +12,7 @@ public class GameUI_CS : MonoBehaviour
     public Text errorText, goalText, droppedOffTxt, gameOverText;
     public Text minutesTimerTxt, secondsTimerTxt;
     public Text pointsTxt;
+    public Text disguiseTimer;
     public GameObject[] crimIcons;
     public Slider crimSlider;
     public GameObject timer;

@@ -107,10 +107,23 @@ public class Police_CS : MonoBehaviour
     {
         while (LevelManager_CS.instance.playerhasCrim == true)
         {
+
             //print("Chasing!");
             agent.speed = chaseSpeed;
             goingTo.transform.position = player.transform.position;
+
             agent.SetDestination(player.transform.position);
+
+            float dist = Vector3.Distance(this.transform.position, player.transform.position);
+            if (dist < 50)
+            {
+                Police_CS.instance.chaseSpeed = 16;
+            }
+            else
+            {
+                print("Out of view, Speeding up!");
+                Police_CS.instance.chaseSpeed = 30;
+            }
 
             yield return new WaitForSeconds(0.2f);
         }

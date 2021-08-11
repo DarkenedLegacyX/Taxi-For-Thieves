@@ -23,7 +23,7 @@ public class Powerup_CS : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.CompareTag("Powerup"))
         {
             if (isCollected == false)
@@ -34,6 +34,7 @@ public class Powerup_CS : MonoBehaviour
                     print("Disguise!");
                     PlayerController.instance.disguisePower = true;
                     //Destroy(gameObject);
+                    PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
                 }
                 else if (ranNum >= 21 && ranNum <= 60)
@@ -41,6 +42,7 @@ public class Powerup_CS : MonoBehaviour
                     print("Speed!");
                     PlayerController.instance.speedPower = true;
                     //Destroy(gameObject);
+                    PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
                 }
                 else if (ranNum >= 61 && ranNum <= 100)
@@ -48,12 +50,14 @@ public class Powerup_CS : MonoBehaviour
                     print("Mud!");
                     PlayerController.instance.mudPower = true;
                     //Destroy(gameObject);
+                    PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
                 }
                 else
                 {
                     print("What?");
                     //Destroy(gameObject);
+                    PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
                 }
                 isCollected = true;

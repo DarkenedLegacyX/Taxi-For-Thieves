@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float speedInput, turnInput, speedPenalty;
     public GameObject loot;
     bool grounded;
+    bool holdPlayer;
 
     [Header("POWERUP")]
     public GameObject mudObject;
@@ -58,11 +59,15 @@ public class PlayerController : MonoBehaviour
         sphereRB.transform.parent = null;
         ResetPosition();
         //indicatorTarget = new Vector3(0, 0, 0);
+        holdPlayer = false;
     }
 
 
     void Update()
     {
+        if (holdPlayer)
+            return;
+
         if (isBoosted == true)
         {
             //print("ZOOMING");
@@ -86,6 +91,11 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetAxis("Vertical") < 0)
         {
             speedInput = Input.GetAxis("Vertical") * maxReverseSpeed;
+        }
+
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            StartCoroutine("HoldPlayer");
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -151,6 +161,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (holdPlayer)
+            sphereRB.transform.position = transform.position;
+
         if (grounded)
         {
             sphereRB.drag = groundDrag;
@@ -296,5 +309,12 @@ public class PlayerController : MonoBehaviour
         }
         //yield return new WaitForSecondsRealtime(10f);
         LevelManager_CS.instance.playerhasCrim = true;
+    }
+
+    public IEnumerator HoldPlayer()
+    {
+        holdPlayer = true;
+        yield return new WaitForSecondsRealtime(3);
+        holdPlayer = false;
     }
 }

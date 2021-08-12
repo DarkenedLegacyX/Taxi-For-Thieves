@@ -25,22 +25,22 @@ public class Police_CS : MonoBehaviour
 
     public float chaseSpeed, patrolSpeed;
 
-    private DrivingCops carDriver;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        carDriver = GetComponent<DrivingCops>();
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else if (instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
+        
     }
     void Start()
     {
+        goingTo.transform.parent = null;
         agent = GetComponent<NavMeshAgent>();
         spawnPoint = transform;
         spawnPLocation = spawnPoint.transform.position;
@@ -99,7 +99,7 @@ public class Police_CS : MonoBehaviour
         print("Returning to spawn!");
         float distance = Vector3.Distance(transform.position, spawnPoint);
         agent.SetDestination(spawnPoint);
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine("FindPatrolPoint");
     }
 
@@ -117,12 +117,12 @@ public class Police_CS : MonoBehaviour
             float dist = Vector3.Distance(this.transform.position, player.transform.position);
             if (dist < 50)
             {
-                Police_CS.instance.chaseSpeed = 16;
+                chaseSpeed = 16;
             }
             else
             {
                 print("Out of view, Speeding up!");
-                Police_CS.instance.chaseSpeed = 30;
+                chaseSpeed = 30;
             }
 
             yield return new WaitForSeconds(0.2f);
@@ -136,6 +136,24 @@ public class Police_CS : MonoBehaviour
 
     void Update()
     {
+    }
+
+    private IEnumerator HoldPolice()
+    {
+        StopCoroutine("ChasePlayer");
+        StopCoroutine("Patrol");
+        StopCoroutine("FindPatrolPoint");
+        agent.isStopped = true;
+        agent.speed = 0;
+        yield return new WaitForSecondsRealtime(4);
+        //agent.enabled = true;
+        agent.isStopped = false;
+        StartCoroutine("ReturnToSpawn", spawnPLocation);
+    }
+
+    public void HoldCop()
+    {
+        StartCoroutine("HoldPolice");
     }
 
     private void OnTriggerEnter(Collider other)

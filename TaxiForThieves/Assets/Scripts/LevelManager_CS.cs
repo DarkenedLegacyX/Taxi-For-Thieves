@@ -91,7 +91,10 @@ public class LevelManager_CS : MonoBehaviour
                 PauseGame();
         }
 
-
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StartCoroutine("GameHoldFor", 3);
+        }
     }
     void PauseGame()
     {
@@ -172,10 +175,12 @@ public class LevelManager_CS : MonoBehaviour
 
     public void ResetPlayerLost()
     {
+        playerhasCrim = false;
         GameUI_CS.instance.StopTimer();
-        PlayerController.instance.ResetPosition();
+        //PlayerController.instance.ResetPosition();
         //PlayerController.instance.ActivateIndicator(false);
-        cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        //cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        StartCoroutine("GameHoldFor", 3);
         GameUI_CS.instance.ShowErrorMsg();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
@@ -219,6 +224,14 @@ public class LevelManager_CS : MonoBehaviour
         }
     }
 
+    void HoldAllCops()
+    {
+        foreach(Transform cop in cops)
+        {
+            cop.gameObject.SendMessage("HoldCop");
+        }
+    }
+
     IEnumerator GameOver()
     {
         GameUI_CS.instance.ShowGameOver();
@@ -231,6 +244,13 @@ public class LevelManager_CS : MonoBehaviour
         GameUI_CS.instance.ShowGameWin();
         yield return new WaitForSecondsRealtime(5);
         SceneLoader.LoadMainMenu();
+    }
+
+    IEnumerator GameHoldFor(int sec)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(sec);
+        Time.timeScale = 1;
     }
     public void TimeOver()
     {

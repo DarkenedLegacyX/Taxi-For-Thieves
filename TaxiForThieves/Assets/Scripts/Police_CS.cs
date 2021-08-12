@@ -138,22 +138,9 @@ public class Police_CS : MonoBehaviour
     {
     }
 
-    private IEnumerator HoldPolice()
+    public void GoBackToSpawn()
     {
-        StopCoroutine("ChasePlayer");
-        StopCoroutine("Patrol");
-        StopCoroutine("FindPatrolPoint");
-        agent.isStopped = true;
-        agent.speed = 0;
-        yield return new WaitForSecondsRealtime(4);
-        //agent.enabled = true;
-        agent.isStopped = false;
         StartCoroutine("ReturnToSpawn", spawnPLocation);
-    }
-
-    public void HoldCop()
-    {
-        StartCoroutine("HoldPolice");
     }
 
     private void OnTriggerEnter(Collider other)

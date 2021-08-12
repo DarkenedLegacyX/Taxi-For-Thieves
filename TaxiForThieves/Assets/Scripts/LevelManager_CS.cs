@@ -177,13 +177,16 @@ public class LevelManager_CS : MonoBehaviour
     {
         playerhasCrim = false;
         GameUI_CS.instance.StopTimer();
+        SliderScriptAnim.instance.PlayPrisonerAnim(currentCrimIndex - 1);
         //PlayerController.instance.ResetPosition();
         //PlayerController.instance.ActivateIndicator(false);
         //cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
-        StartCoroutine("GameHoldFor", 3);
+        //StartCoroutine("GameHoldFor", 3);
+        PlayerController.instance.StartCoroutine("HoldPlayer");
+        SendCopsToSpawnsPos();
         GameUI_CS.instance.ShowErrorMsg();
         GameUI_CS.instance.SetCrimSliderAt(0);
-        GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
+        //GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
         currentDropOff.SendMessage("Deactivate");
         SpawnACrim();
     }
@@ -224,11 +227,11 @@ public class LevelManager_CS : MonoBehaviour
         }
     }
 
-    void HoldAllCops()
+    void SendCopsToSpawnsPos()
     {
         foreach(Transform cop in cops)
         {
-            cop.gameObject.SendMessage("HoldCop");
+            cop.gameObject.SendMessage("GoBackToSpawn");
         }
     }
 
@@ -248,6 +251,7 @@ public class LevelManager_CS : MonoBehaviour
 
     IEnumerator GameHoldFor(int sec)
     {
+        yield return new WaitForSecondsRealtime(sec);
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(sec);
         Time.timeScale = 1;

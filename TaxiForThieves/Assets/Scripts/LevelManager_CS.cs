@@ -14,7 +14,7 @@ public class LevelManager_CS : MonoBehaviour
     public bool timeRestrictionOn;
     public bool crimModel;
     public int totalNumberOfCrims = 9;
-    public int goalNuberOfCrims;
+    public int goalNuberOfPoints;
     int currentCrimIndex;
     public int crimsRemaining;
     int crimsDroppedOff;
@@ -61,7 +61,6 @@ public class LevelManager_CS : MonoBehaviour
         crimsDroppedOff = 0;
         playerPoints = 0;
         gamePaused = false;
-        GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GetCops();
@@ -118,7 +117,6 @@ public class LevelManager_CS : MonoBehaviour
         currentCrimIndex = 0;
         crimsDroppedOff = 0;
         playerPoints = 0;
-        GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GameUI_CS.instance.ResetIconsColor();
@@ -131,7 +129,7 @@ public class LevelManager_CS : MonoBehaviour
     {
         if (crimsRemaining == 0)
         {
-            if (crimsDroppedOff >= goalNuberOfCrims)
+            if (playerPoints >= goalNuberOfPoints)
                 StartCoroutine("GameWin");
             else
                 StartCoroutine("GameOver");
@@ -163,7 +161,6 @@ public class LevelManager_CS : MonoBehaviour
     public void CrimDroppedOff()
     {
         crimsDroppedOff++;
-        GameUI_CS.instance.UpdateCrimsCounter(crimsDroppedOff, goalNuberOfCrims);
         playerhasCrim = false;
         SpawnACrim();
         GameUI_CS.instance.haveCrim = false;
@@ -177,11 +174,13 @@ public class LevelManager_CS : MonoBehaviour
     {
         playerhasCrim = false;
         GameUI_CS.instance.StopTimer();
+        PlayerController.instance.PoofPoliceGotUs();
         SliderScriptAnim.instance.PlayPrisonerAnim(currentCrimIndex - 1);
         //PlayerController.instance.ResetPosition();
         //PlayerController.instance.ActivateIndicator(false);
         //cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
         //StartCoroutine("GameHoldFor", 3);
+        
         PlayerController.instance.StartCoroutine("HoldPlayer");
         SendCopsToSpawnsPos();
         GameUI_CS.instance.ShowErrorMsg();
@@ -265,6 +264,13 @@ public class LevelManager_CS : MonoBehaviour
             GameUI_CS.instance.SetIconToRed(currentCrimIndex - 1);
             currentDropOff.SendMessage("Deactivate");
             SpawnACrim();
+        }
+    }
+    public void SetAllPoliceChaseSpeed(int newSpeed)
+    {
+        foreach (Transform cop in cops)
+        {
+            cop.gameObject.SendMessage("SetChaseSpeed", newSpeed);
         }
     }
 }

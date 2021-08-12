@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public float speedInput, turnInput, speedPenalty;
     public GameObject loot;
+    public GameObject poofPolice;
     bool grounded;
     bool holdPlayer;
 
@@ -65,8 +66,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (holdPlayer)
-            return;
 
         if (isBoosted == true)
         {
@@ -84,62 +83,66 @@ public class PlayerController : MonoBehaviour
         velocity = sphereRB.velocity.magnitude;
 
         speedInput = 0f;
-        if (Input.GetAxis("Vertical") > 0)
+        if(!holdPlayer)
         {
-            speedInput = Input.GetAxis("Vertical") * maxSpeed;
-        }
-        else if (Input.GetAxis("Vertical") < 0)
-        {
-            speedInput = Input.GetAxis("Vertical") * maxReverseSpeed;
-        }
+            if (Input.GetAxis("Vertical") > 0)
+            {
+                speedInput = Input.GetAxis("Vertical") * maxSpeed;
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                speedInput = Input.GetAxis("Vertical") * maxReverseSpeed;
+            }
 
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            StartCoroutine("HoldPlayer");
-        }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                StartCoroutine("HoldPlayer");
+            }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (mudPower == true)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                
-                Instantiate(mudObject, this.transform.position, this.transform.rotation);
-                print("Used mud!");
-                Powerup_CS.instance.isCollected = false;
-                mudPower = false;
-                //StartCoroutine("ActivateDisguise");
+                if (mudPower == true)
+                {
+
+                    Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                    print("Used mud!");
+                    Powerup_CS.instance.isCollected = false;
+                    mudPower = false;
+                    //StartCoroutine("ActivateDisguise");
+                }
+                if (speedPower == true)
+                {
+                    //Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                    print("Used speed!");
+                    PlayerController.instance.SpeedBoost(5);
+                    Powerup_CS.instance.isCollected = false;
+                    speedPower = false;
+                    //StartCoroutine("ActivateDisguise");
+                }
+                if (disguisePower == true && LevelManager_CS.instance.playerhasCrim == true)
+                {
+                    //Instantiate(mudObject, this.transform.position, this.transform.rotation);
+                    print("Used Diguise!");
+                    Powerup_CS.instance.isCollected = false;
+                    disguisePower = false;
+                    StartCoroutine("ActivateDisguise");
+                }
+                else if (disguisePower == true && LevelManager_CS.instance.playerhasCrim == false)
+                {
+                    print("Cops must chase you!");
+                }
+                else
+                {
+                    print("No Powa");
+                }
             }
-            if (speedPower == true)
-            {
-                //Instantiate(mudObject, this.transform.position, this.transform.rotation);
-                print("Used speed!");
-                PlayerController.instance.SpeedBoost(5);
-                Powerup_CS.instance.isCollected = false;
-                speedPower = false;
-                //StartCoroutine("ActivateDisguise");
-            }
-            if (disguisePower == true && LevelManager_CS.instance.playerhasCrim == true)
-            {
-                //Instantiate(mudObject, this.transform.position, this.transform.rotation);
-                print("Used Diguise!");
-                Powerup_CS.instance.isCollected = false;
-                disguisePower = false;
-                StartCoroutine("ActivateDisguise");
-            }
-            else if(disguisePower == true && LevelManager_CS.instance.playerhasCrim == false)
-            {
-                print("Cops must chase you!");
-            }
-            else
-            {
-                print("No Powa");
-            }
+
         }
         RaycastHit hit;
         grounded = Physics.Raycast(rayCastPoint.position, -transform.up, out hit, groundRayLength, whatIsGround);
 
         turnInput = Input.GetAxis("Horizontal");
-        if (grounded)
+        if (grounded && !holdPlayer)
         {
             if (Mathf.Abs(turnInput) > 0.1f && speedInput > 0)
             {
@@ -161,9 +164,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (holdPlayer)
-            sphereRB.transform.position = transform.position;
-
         if (grounded)
         {
             sphereRB.drag = groundDrag;
@@ -316,5 +316,10 @@ public class PlayerController : MonoBehaviour
         holdPlayer = true;
         yield return new WaitForSecondsRealtime(3);
         holdPlayer = false;
+    }
+
+    public void PoofPoliceGotUs()
+    {
+        poofPolice.SetActive(true);
     }
 }

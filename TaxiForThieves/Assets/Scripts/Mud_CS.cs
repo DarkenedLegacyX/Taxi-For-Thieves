@@ -15,7 +15,7 @@ public class Mud_CS : MonoBehaviour
         if (other.CompareTag("Cop"))
         {
             print("SLOWING DOWN");
-            Police_CS.instance.chaseSpeed = 7;
+            other.SendMessage("SetChaseSpeed", 7);
         }
 
     }
@@ -25,7 +25,7 @@ public class Mud_CS : MonoBehaviour
         if (other.CompareTag("Cop"))
         {
             print("SPEEDING UP");
-            Police_CS.instance.chaseSpeed = 16;
+            other.SendMessage("SetChaseSpeed", 16);
         }
 
     }
@@ -34,7 +34,7 @@ public class Mud_CS : MonoBehaviour
     {
         yield return new WaitForSeconds(10f);
         print("SPEEDING BACK UP AFTER DESTORY");
-        Police_CS.instance.chaseSpeed = 14;
+        LevelManager_CS.instance.SetAllPoliceChaseSpeed(16);
         Object.Destroy(gameObject);
     }
 }

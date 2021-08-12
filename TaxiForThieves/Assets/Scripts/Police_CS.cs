@@ -142,6 +142,10 @@ public class Police_CS : MonoBehaviour
     {
         StartCoroutine("ReturnToSpawn", spawnPLocation);
     }
+    public void SetChaseSpeed(int newSpeed)
+    {
+        chaseSpeed = newSpeed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

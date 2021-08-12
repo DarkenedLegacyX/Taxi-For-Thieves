@@ -50,13 +50,13 @@ public class GameUI_CS : MonoBehaviour
         errorText.gameObject.SetActive(false);
     }
 
-    public void UpdateCrimsCounter(int crimsDropedOff, int crimsTarget)
-    {
-        if (crimsDropedOff > crimsTarget)
-            return;
-        droppedOffTxt.text = crimsDropedOff.ToString();
-        goalText.text = crimsTarget.ToString();
-    }
+    //public void UpdateCrimsCounter(int crimsDropedOff, int crimsTarget)
+    //{
+    //    if (crimsDropedOff > crimsTarget)
+    //        return;
+    //    droppedOffTxt.text = crimsDropedOff.ToString();
+    //    goalText.text = crimsTarget.ToString();
+    //}
     public IEnumerator UpdatePointsCounter(int pointsFinal, float duration)
     {
         float time = 0;

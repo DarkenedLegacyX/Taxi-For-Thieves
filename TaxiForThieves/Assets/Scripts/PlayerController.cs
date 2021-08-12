@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public bool mudPower;
     public bool disguisePower;
     public MeshRenderer[] playerCarMesh;
+    public GameObject[] carToDisguise;
     public bool speedPower;
 
     public LayerMask whatIsGround;
@@ -57,6 +58,11 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        for (int i = 0; i < carToDisguise.Length; i++)
+        {
+            carToDisguise[i].SetActive(false);
+        }
+
         sphereRB.transform.parent = null;
         ResetPosition();
         //indicatorTarget = new Vector3(0, 0, 0);
@@ -275,18 +281,24 @@ public class PlayerController : MonoBehaviour
     IEnumerator DropLoot()
     {
         yield return new WaitForSecondsRealtime(Random.Range(0f, 1f));
-        Instantiate(loot, transform.position + new Vector3(0, 1, -0.5f), transform.rotation, this.transform);
+        Instantiate(loot, transform.position + new Vector3(0, 3, -0.5f), transform.rotation, this.transform);
         yield return null;
     }
 
     IEnumerator ActivateDisguise()
     {
         LevelManager_CS.instance.playerhasCrim = false;
-        
+
+        int rand = Random.Range(0, carToDisguise.Length);
+
         for(int i = 0; i < playerCarMesh.Length; i++)
         {
             playerCarMesh[i].enabled = false;
         }
+
+        carToDisguise[rand].SetActive(true);
+
+        GameUI_CS.instance.disguiseTimer.enabled = true;
 
         float disguiseTime = 10;
         while (disguiseTime >= 1)
@@ -302,6 +314,9 @@ public class PlayerController : MonoBehaviour
             //Making a String Format.
             GameUI_CS.instance.disguiseTimer.text = seconds.ToString();
         }
+
+        carToDisguise[rand].SetActive(false);
+        GameUI_CS.instance.disguiseTimer.enabled = false;
 
         for (int i = 0; i < playerCarMesh.Length; i++)
         {

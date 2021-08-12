@@ -5,19 +5,13 @@ using UnityEngine;
 public class PowerPickedUp_CS : MonoBehaviour
 {
     public static PowerPickedUp_CS instance = null;
-    public GameObject pickupVFX;
+    public ParticleSystem[] pickupVFX;
     public float speed = 100;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        pickupVFX.SetActive(false);
+
+        instance = this;
+
     }
 
     private void Update()
@@ -28,8 +22,9 @@ public class PowerPickedUp_CS : MonoBehaviour
     IEnumerator PlayEffects()
     {
         print("SPARKLES!");
-        pickupVFX.SetActive(true);
+        //pickupVFX[0].Play();
+        //pickupVFX[1].Play();
         yield return new WaitForSeconds(30f);
-        pickupVFX.SetActive(false);
+
     }
 }

@@ -78,4 +78,5 @@ public class Powerup_CS : MonoBehaviour
         print("On!");
         other.gameObject.SetActive(true);
     }
+
 }

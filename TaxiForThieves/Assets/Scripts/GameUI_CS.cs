@@ -35,6 +35,7 @@ public class GameUI_CS : MonoBehaviour
 
     void Start()
     {
+        disguiseTimer.enabled = false;
         crimSlider.value = 0;
     }
 

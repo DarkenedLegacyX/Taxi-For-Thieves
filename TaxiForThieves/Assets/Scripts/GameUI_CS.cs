@@ -18,6 +18,9 @@ public class GameUI_CS : MonoBehaviour
     public GameObject timer, lostCrimTxt;
     public GameObject pausePanel;
     public GameObject startPanel;
+    public GameObject disguiseIMG;
+    public GameObject speedIMG;
+    public GameObject mudIMG;
     int playerPoints;
     
 
@@ -31,11 +34,14 @@ public class GameUI_CS : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 
     void Start()
     {
+        disguiseIMG.SetActive(false);
+        speedIMG.SetActive(false);
+        mudIMG.SetActive(false);
+
         startPanel.SetActive(true);
         disguiseTimer.enabled = false;
         crimSlider.value = 0;

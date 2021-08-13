@@ -116,7 +116,7 @@ public class Police_CS : MonoBehaviour
 
     IEnumerator ChasePlayer()
     {
-        while (LevelManager_CS.instance.playerhasCrim == true)
+        while (LevelManager_CS.instance.playerhasCrim == true && LevelManager_CS.instance.playerIsDisguised == false)
         {
 
             //print("Chasing!");

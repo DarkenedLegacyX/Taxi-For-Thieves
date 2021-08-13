@@ -10,15 +10,13 @@ public class SpeedBoost : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (isFloor == true) {
-                print("Floor Booooooooooooooost!");
-                PlayerController.instance.SpeedBoost(1);
-            }
-            else
+            if (isFloor == true) 
             {
-                print("Powerup Booooooost!");
-                PlayerController.instance.SpeedBoost(5);
-                Destroy(gameObject);
+                print("Floor Booooooooooooooost!");
+                if (PlayerController.instance.isBoosted == false)
+                {
+                    PlayerController.instance.SpeedBoost(1);
+                }
             }
         }
     }

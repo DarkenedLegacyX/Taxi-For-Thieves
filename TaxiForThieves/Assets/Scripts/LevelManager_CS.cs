@@ -11,6 +11,7 @@ public class LevelManager_CS : MonoBehaviour
     GameObject currentDropOff;
     public Transform[] spawns;
     public bool playerhasCrim;
+    public bool playerIsDisguised;
     public bool timeRestrictionOn;
     public bool crimModel;
     public int totalNumberOfCrims = 9;

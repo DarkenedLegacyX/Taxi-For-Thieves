@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public MeshRenderer[] playerCarMesh;
     public GameObject[] carToDisguise;
     public bool speedPower;
-
+  
     public LayerMask whatIsGround;
     public float groundRayLength = .1f;
 
@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
 
                     Instantiate(mudObject, this.transform.position, this.transform.rotation);
                     print("Used mud!");
+                    GameUI_CS.instance.mudIMG.SetActive(false);
                     Powerup_CS.instance.isCollected = false;
                     mudPower = false;
                     //StartCoroutine("ActivateDisguise");
@@ -119,23 +120,23 @@ public class PlayerController : MonoBehaviour
                 {
                     //Instantiate(mudObject, this.transform.position, this.transform.rotation);
                     print("Used speed!");
+                    GameUI_CS.instance.speedIMG.SetActive(false);
+
                     PlayerController.instance.SpeedBoost(5);
                     Powerup_CS.instance.isCollected = false;
                     speedPower = false;
                     //StartCoroutine("ActivateDisguise");
                 }
-                if (disguisePower == true && LevelManager_CS.instance.playerhasCrim == true)
+                if (disguisePower == true)
                 {
                     //Instantiate(mudObject, this.transform.position, this.transform.rotation);
                     print("Used Diguise!");
+                    GameUI_CS.instance.disguiseIMG.SetActive(false);
                     Powerup_CS.instance.isCollected = false;
                     disguisePower = false;
                     StartCoroutine("ActivateDisguise");
                 }
-                else if (disguisePower == true && LevelManager_CS.instance.playerhasCrim == false)
-                {
-                    print("Cops must chase you!");
-                }
+
                 else
                 {
                     print("No Powa");
@@ -247,6 +248,7 @@ public class PlayerController : MonoBehaviour
 
     public void SpeedBoost(int time)
     {
+
         isBoosted = true;
         StartCoroutine(SpeedUpFor(time, 0.33f));
     }
@@ -262,6 +264,7 @@ public class PlayerController : MonoBehaviour
 
         //forwardSpeed += forward;
         //reverseSpeed += reverse;
+
         yield return new WaitForSecondsRealtime(speedUpSec);
         print("Turning off boost");
         isBoosted = false;
@@ -286,7 +289,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ActivateDisguise()
     {
-        LevelManager_CS.instance.playerhasCrim = false;
+        //LevelManager_CS.instance.playerhasCrim = false;
+        LevelManager_CS.instance.playerIsDisguised = true;
 
         int rand = Random.Range(0, carToDisguise.Length);
 
@@ -322,7 +326,8 @@ public class PlayerController : MonoBehaviour
             playerCarMesh[i].enabled = true;
         }
         //yield return new WaitForSecondsRealtime(10f);
-        LevelManager_CS.instance.playerhasCrim = true;
+        LevelManager_CS.instance.playerIsDisguised = false;
+        //LevelManager_CS.instance.playerhasCrim = true;
     }
 
     public IEnumerator HoldPlayer(int forSeconds)

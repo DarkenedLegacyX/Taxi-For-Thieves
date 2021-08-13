@@ -64,6 +64,7 @@ public class LevelManager_CS : MonoBehaviour
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GetCops();
+        StartCoroutine("HoldAlltheTraffic", 7);
     }
 
     void Update()
@@ -92,8 +93,9 @@ public class LevelManager_CS : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            StartCoroutine("GameHoldFor", 3);
+            StopNPCs(false);
         }
+
     }
     void PauseGame()
     {
@@ -181,7 +183,7 @@ public class LevelManager_CS : MonoBehaviour
         //cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
         //StartCoroutine("GameHoldFor", 3);
         
-        PlayerController.instance.StartCoroutine("HoldPlayer");
+        PlayerController.instance.StartCoroutine("HoldPlayer", 3);
         SendCopsToSpawnsPos();
         GameUI_CS.instance.ShowErrorMsg();
         GameUI_CS.instance.SetCrimSliderAt(0);
@@ -224,6 +226,17 @@ public class LevelManager_CS : MonoBehaviour
         {
             copsSpawnPoints[i] = allCops.transform.GetChild(i);
         }
+    }
+    void StopNPCs(bool stop)
+    {
+        GameObject NPCs = GameObject.Find("CarTraffic");
+        int allNPCsCount = NPCs.transform.childCount;
+        print(allNPCsCount);
+        for (int i = 0; i < allNPCsCount; i++)
+        {
+            NPCs.transform.GetChild(i).gameObject.SendMessage("StopNPC", stop);
+        }
+
     }
 
     void SendCopsToSpawnsPos()
@@ -272,5 +285,20 @@ public class LevelManager_CS : MonoBehaviour
         {
             cop.gameObject.SendMessage("SetChaseSpeed", newSpeed);
         }
+    }
+    public void StopAllPolice(int seconds)
+    {
+        foreach (Transform cop in cops)
+        {
+            cop.gameObject.SendMessage("StopTheCop", seconds);
+        }
+    }
+    public IEnumerator HoldAlltheTraffic(int seconds)
+    {
+        StopAllPolice(seconds);
+        StopNPCs(false);
+        PlayerController.instance.StartCoroutine("HoldPlayer", seconds);
+        yield return new WaitForSecondsRealtime(seconds);
+        StopNPCs(true);
     }
 }

@@ -68,4 +68,9 @@ public class TrafficWaypoint_CS : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         canMove = true;
     }
+
+    public void SetCanMove(bool move)
+    {
+        canMove = move;
+    }
 }

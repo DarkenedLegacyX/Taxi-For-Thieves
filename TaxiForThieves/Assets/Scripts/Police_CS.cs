@@ -25,7 +25,6 @@ public class Police_CS : MonoBehaviour
 
     public float chaseSpeed, patrolSpeed;
 
-
     private void Awake()
     {
         //if (instance == null)
@@ -91,6 +90,18 @@ public class Police_CS : MonoBehaviour
             distance = Vector3.Distance(transform.position, moveToPos);
             yield return new WaitForSeconds(0.1f);
         }
+        StartCoroutine("FindPatrolPoint");
+    }
+
+    public void StopTheCop(int seconds)
+    {
+        StopAllCoroutines();
+        StartCoroutine("HoldPosition", seconds);
+    }
+    IEnumerator HoldPosition(int seconds)
+    {
+        agent.SetDestination(this.transform.position);
+        yield return new WaitForSecondsRealtime(seconds);
         StartCoroutine("FindPatrolPoint");
     }
 

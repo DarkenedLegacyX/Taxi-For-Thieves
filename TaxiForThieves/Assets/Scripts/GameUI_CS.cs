@@ -15,7 +15,7 @@ public class GameUI_CS : MonoBehaviour
     public Text disguiseTimer;
     public GameObject[] crimIcons;
     public Slider crimSlider;
-    public GameObject timer;
+    public GameObject timer, lostCrimTxt;
     public GameObject pausePanel;
     int playerPoints;
     
@@ -44,11 +44,11 @@ public class GameUI_CS : MonoBehaviour
 
     }
 
-    IEnumerator ShowErrorText()
+    IEnumerator ShowLostCrimText()
     {
-        errorText.gameObject.SetActive(true);
+        lostCrimTxt.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(3);
-        errorText.gameObject.SetActive(false);
+        lostCrimTxt.gameObject.SetActive(false);
     }
 
     //public void UpdateCrimsCounter(int crimsDropedOff, int crimsTarget)
@@ -76,7 +76,7 @@ public class GameUI_CS : MonoBehaviour
 
     public void ShowErrorMsg()
     {
-        StartCoroutine(ShowErrorText());
+        StartCoroutine(ShowLostCrimText());
     }
     public void ShowGameOver()
     {

@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public GameObject loot;
     public GameObject poofPolice;
     bool grounded;
-    bool holdPlayer;
+    bool holdPlayer = false;
 
     [Header("POWERUP")]
     public GameObject mudObject;
@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
         sphereRB.transform.parent = null;
         ResetPosition();
         //indicatorTarget = new Vector3(0, 0, 0);
-        holdPlayer = false;
     }
 
 
@@ -326,10 +325,10 @@ public class PlayerController : MonoBehaviour
         LevelManager_CS.instance.playerhasCrim = true;
     }
 
-    public IEnumerator HoldPlayer()
+    public IEnumerator HoldPlayer(int forSeconds)
     {
         holdPlayer = true;
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(forSeconds);
         holdPlayer = false;
     }
 

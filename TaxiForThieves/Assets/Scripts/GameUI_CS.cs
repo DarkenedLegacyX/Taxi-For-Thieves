@@ -17,6 +17,7 @@ public class GameUI_CS : MonoBehaviour
     public Slider crimSlider;
     public GameObject timer, lostCrimTxt;
     public GameObject pausePanel;
+    public GameObject startPanel;
     int playerPoints;
     
 
@@ -35,6 +36,7 @@ public class GameUI_CS : MonoBehaviour
 
     void Start()
     {
+        startPanel.SetActive(true);
         disguiseTimer.enabled = false;
         crimSlider.value = 0;
     }

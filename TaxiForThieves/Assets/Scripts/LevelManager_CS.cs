@@ -95,7 +95,7 @@ public class LevelManager_CS : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            StopNPCs(false);
+            GameUI_CS.instance.StartEndGamePanel();
         }
 
     }

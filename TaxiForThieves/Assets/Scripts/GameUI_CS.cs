@@ -17,7 +17,7 @@ public class GameUI_CS : MonoBehaviour
     public Slider crimSlider;
     public GameObject timer, lostCrimTxt;
     public GameObject pausePanel;
-    public GameObject startPanel;
+    public GameObject startPanel, endGamePanel;
     public GameObject disguiseIMG;
     public GameObject speedIMG;
     public GameObject mudIMG;
@@ -45,6 +45,7 @@ public class GameUI_CS : MonoBehaviour
         startPanel.SetActive(true);
         disguiseTimer.enabled = false;
         crimSlider.value = 0;
+        HideEndGamePanel();
     }
 
     void FixedUpdate()
@@ -180,5 +181,17 @@ public class GameUI_CS : MonoBehaviour
     public void PauseUi(bool paused)
     {
         pausePanel.SetActive(paused);
+    }
+
+    void HideEndGamePanel()
+    {
+        endGamePanel.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 10000, 0);
+    }
+
+    public void StartEndGamePanel()
+    {
+        RectTransform rt = endGamePanel.GetComponent<RectTransform>();
+        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, rt.rect.height);
+        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, rt.rect.width);
     }
 }

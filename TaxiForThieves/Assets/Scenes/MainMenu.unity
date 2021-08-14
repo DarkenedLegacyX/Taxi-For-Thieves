@@ -37811,8 +37811,16 @@ MonoBehaviour:
   lvl2Button: {fileID: 1576238043}
   lvl3Button: {fileID: 1195509087}
   backlvlButton: {fileID: 1152765951}
+  highScoreLvl1: {fileID: 155450828}
+  highScoreLvl2: {fileID: 1620175428}
+  highScoreLvl3: {fileID: 337666339}
   mainButtonsAnimator: {fileID: 22551405}
   levelSelectAnimator: {fileID: 64608859}
+  unlockAllLevels: 0
+  scoreToUnlockLvl2: 3000
+  scoreToUnlockLvl3: 1000
+  lvl2ButtonCage: {fileID: 1175086444}
+  lvl3ButtonCage: {fileID: 1916984040}
 --- !u!4 &2040590365
 Transform:
   m_ObjectHideFlags: 0

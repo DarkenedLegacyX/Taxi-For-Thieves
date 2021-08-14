@@ -64,6 +64,7 @@ public class LevelManager_CS : MonoBehaviour
         gamePaused = false;
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
+        GameUI_CS.instance.UpdatePoints(goalNuberOfPoints);
         GetCops();
         StartCoroutine("HoldAlltheTraffic", 7);
     }

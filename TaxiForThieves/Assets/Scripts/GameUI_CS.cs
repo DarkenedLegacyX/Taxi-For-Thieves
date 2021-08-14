@@ -11,7 +11,7 @@ public class GameUI_CS : MonoBehaviour
     public bool haveCrim = false;
     public Text errorText, goalText, droppedOffTxt, gameOverText;
     public Text minutesTimerTxt, secondsTimerTxt;
-    public Text pointsTxt;
+    public Text pointsTxt, pointsRequiredTxt;
     public Text disguiseTimer;
     public GameObject[] crimIcons;
     public Slider crimSlider;
@@ -80,6 +80,12 @@ public class GameUI_CS : MonoBehaviour
         }
         playerPoints = pointsFinal;
         pointsTxt.text = playerPoints.ToString();
+    }
+
+    public void UpdatePoints(int pointsRequired)
+    {
+        pointsTxt.text = playerPoints.ToString();
+        pointsRequiredTxt.text = "/ " + pointsRequired.ToString();
     }
 
     public void ShowErrorMsg()

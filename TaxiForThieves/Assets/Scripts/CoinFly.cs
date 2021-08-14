@@ -13,7 +13,7 @@ public class CoinFly : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Rotate(0, 0, Random.Range(1, 4));
+        transform.Rotate(0, 0, Random.Range(3, 7));
     }
 
     IEnumerator FlyToUI()

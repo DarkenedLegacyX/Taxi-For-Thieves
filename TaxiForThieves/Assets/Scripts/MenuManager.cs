@@ -5,18 +5,29 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public Button PlayButton, howToButton, closeHowTo, ExitButton;
+    public Button playButton, howToButton, exitButton;
+    public Button lvl1Button, lvl2Button, lvl3Button, backlvlButton;
+    public Animator mainButtonsAnimator, levelSelectAnimator;
     void Start()
     {
-        PlayButton.onClick.AddListener(StartGame);
-        howToButton.onClick.AddListener(HowToPlayOpen);
-        closeHowTo.onClick.AddListener(HowToPlayClose);
-        ExitButton.onClick.AddListener(ExitGame);
+        playButton.onClick.AddListener(PlayButtonClick);
+        //howToButton.onClick.AddListener(HowToPlayOpen);
+        //closeHowTo.onClick.AddListener(HowToPlayClose);
+        exitButton.onClick.AddListener(ExitGame);
+        backlvlButton.onClick.AddListener(BackButtonClick);
     }
 
-    void StartGame()
+    void PlayButtonClick()
     {
-        SceneLoader.LoadLevel(1);
+        mainButtonsAnimator.Play("MainMenuAnimationSlideout");
+        levelSelectAnimator.Play("LevelSelectButtonsAnimSlideIn");
+        //SceneLoader.LoadLevel(1);
+    }
+    void BackButtonClick()
+    {
+        mainButtonsAnimator.Play("MainMenuAnimationSlidein");
+        levelSelectAnimator.Play("LevelSelectButtonsAnimSlideOut");
+        //SceneLoader.LoadLevel(1);
     }
 
     void HowToPlayOpen()

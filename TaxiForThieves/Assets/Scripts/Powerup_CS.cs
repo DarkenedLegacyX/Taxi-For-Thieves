@@ -6,6 +6,8 @@ public class Powerup_CS : MonoBehaviour
 {
     public static Powerup_CS instance = null;
     public GameObject pickupVFX;
+    public GameObject crimVFX;
+    public GameObject crimDropVFX;
     public bool isCollected = false;
     public int ranNum;
 
@@ -24,6 +26,18 @@ public class Powerup_CS : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("FinishLine"))
+        {
+            crimDropVFX.transform.position = other.transform.position;
+            print("Playing!");
+            StartCoroutine("ResetCrimDropVFX");
+        }
+
+        if (other.CompareTag("Crim"))
+        {
+            crimVFX.transform.position = other.transform.position;
+            StartCoroutine("ResetCrimVFX");
+        }
 
         if (other.CompareTag("Powerup"))
         {
@@ -40,7 +54,7 @@ public class Powerup_CS : MonoBehaviour
                     //Destroy(gameObject);
                     //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
-                    StartCoroutine("ResetVFX");
+                    StartCoroutine("ResetPowerUpVFX");
                 }
                 else if (ranNum >= 21 && ranNum <= 60)
                 {
@@ -50,7 +64,7 @@ public class Powerup_CS : MonoBehaviour
                     //Destroy(gameObject);
                     //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
-                    StartCoroutine("ResetVFX");
+                    StartCoroutine("ResetPowerUpVFX");
                 }
                 else if (ranNum >= 61 && ranNum <= 100)
                 {
@@ -60,7 +74,7 @@ public class Powerup_CS : MonoBehaviour
                     //Destroy(gameObject);
                     //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
-                    StartCoroutine("ResetVFX");
+                    StartCoroutine("ResetPowerUpVFX");
                 }
                 else
                 {
@@ -68,7 +82,7 @@ public class Powerup_CS : MonoBehaviour
                     //Destroy(gameObject);
                     //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
                     StartCoroutine(Respawn(other));
-                    StartCoroutine("ResetVFX");
+                    StartCoroutine("ResetPowerUpVFX");
                 }
                 isCollected = true;
             }
@@ -89,13 +103,32 @@ public class Powerup_CS : MonoBehaviour
         other.gameObject.SetActive(true);
     }
 
-    IEnumerator ResetVFX()
+    IEnumerator ResetPowerUpVFX()
     {
         pickupVFX.SetActive(true);
-        print("VFX ON!");
-        yield return new WaitForSeconds(1f);
+        print("POWER VFX ON!");
+        yield return new WaitForSeconds(2f);
         pickupVFX.SetActive(false);
-        print("VFX OFF!");
+        print("POWER VFX OFF!");
     }
+
+    IEnumerator ResetCrimVFX()
+    {
+        crimVFX.SetActive(true);
+        print("CRIM VFX ON!");
+        yield return new WaitForSeconds(2f);
+        crimVFX.SetActive(false);
+        print("CRIM VFX OFF!");
+    }
+
+    IEnumerator ResetCrimDropVFX()
+    {
+        crimDropVFX.SetActive(true);
+        print("CRIM DROP VFX ON!");
+        yield return new WaitForSeconds(2f);
+        crimDropVFX.SetActive(false);
+        print("CRIM DROP VFX OFF!");
+    }
+
 
 }

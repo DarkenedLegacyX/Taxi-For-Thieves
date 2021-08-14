@@ -128,12 +128,12 @@ public class Police_CS : MonoBehaviour
             float dist = Vector3.Distance(this.transform.position, player.transform.position);
             if (dist < 50)
             {
-                chaseSpeed = 16;
+                chaseSpeed = 15;
             }
             else
             {
                 print("Out of view, Speeding up!");
-                chaseSpeed = 30;
+                chaseSpeed = 25;
             }
 
             yield return new WaitForSeconds(0.2f);

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Transform rayCastPoint;
     public Transform wheelFL, wheelFR, wheelBL, wheelBR;
     public GameObject indicator;
+    public SpriteRenderer indicatorColor;
     public Vector3 indicatorTarget;
 
     public float turnSpeed = 180f, maxSpeed = 8f, maxReverseSpeed = 4f, gravityForce = 10f;
@@ -131,8 +132,6 @@ public class PlayerController : MonoBehaviour
                 {
                     //Instantiate(mudObject, this.transform.position, this.transform.rotation);
                     print("Used Diguise!");
-                    GameUI_CS.instance.disguiseIMG.SetActive(false);
-                    Powerup_CS.instance.isCollected = false;
                     disguisePower = false;
                     StartCoroutine("ActivateDisguise");
                 }
@@ -186,6 +185,7 @@ public class PlayerController : MonoBehaviour
 
         if (LevelManager_CS.instance.playerhasCrim)
         {
+            indicatorColor.color = new Color32(3, 188, 8, 255);
             Vector3 direction = indicatorTarget - indicator.transform.position;
             float dist = Vector3.Distance(indicatorTarget, indicator.transform.position);
             if(dist < 40)
@@ -200,6 +200,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            indicatorColor.color = new Color32(4, 92, 253, 255);
             //print("1111111");
             Vector3 direction = indicatorTarget - indicator.transform.position;
             float dist = Vector3.Distance(indicatorTarget, indicator.transform.position);
@@ -318,9 +319,10 @@ public class PlayerController : MonoBehaviour
             GameUI_CS.instance.disguiseTimer.text = seconds.ToString();
         }
 
+        Powerup_CS.instance.isCollected = false;
         carToDisguise[rand].SetActive(false);
         GameUI_CS.instance.disguiseTimer.enabled = false;
-
+        GameUI_CS.instance.disguiseIMG.SetActive(false);
         for (int i = 0; i < playerCarMesh.Length; i++)
         {
             playerCarMesh[i].enabled = true;

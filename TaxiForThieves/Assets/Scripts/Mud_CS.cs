@@ -15,7 +15,7 @@ public class Mud_CS : MonoBehaviour
         if (other.CompareTag("Cop"))
         {
             print("SLOWING DOWN");
-            other.SendMessage("SetChaseSpeed", 7);
+            other.SendMessage("SetChaseSpeed", 6);
         }
 
     }
@@ -25,7 +25,7 @@ public class Mud_CS : MonoBehaviour
         if (other.CompareTag("Cop"))
         {
             print("SPEEDING UP");
-            other.SendMessage("SetChaseSpeed", 16);
+            other.SendMessage("SetChaseSpeed", 15);
         }
 
     }

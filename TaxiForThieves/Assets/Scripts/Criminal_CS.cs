@@ -32,10 +32,12 @@ public class Criminal_CS : MonoBehaviour
         { 
             print("Criminal Picked up!");
             LevelManager_CS.instance.CrimPickedUp();
-            gameObject.transform.position = new Vector3(0, 75, 0);
+            
             dropOffPoint.SendMessage("Activate");
             //PlayerController.instance.ActivateIndicator(true);
             gameObject.SetActive(false);
+
+            //gameObject.transform.position = new Vector3(0, 75, 0);
         }
     }
 }

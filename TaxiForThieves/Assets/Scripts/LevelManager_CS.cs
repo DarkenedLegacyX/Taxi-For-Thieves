@@ -36,7 +36,7 @@ public class LevelManager_CS : MonoBehaviour
 
     [Header("OTHER")]
     int playerPoints;
-    bool gamePaused;
+    bool gamePaused, gameExitPaused;
 
     private void Awake()
     {
@@ -62,6 +62,7 @@ public class LevelManager_CS : MonoBehaviour
         crimsDroppedOff = 0;
         playerPoints = 0;
         gamePaused = false;
+        gameExitPaused = false;
         SpawnACrim();
         GameUI_CS.instance.SetCrimSliderAt(0);
         GameUI_CS.instance.UpdatePoints(goalNuberOfPoints);
@@ -71,9 +72,9 @@ public class LevelManager_CS : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown("escape"))
         {
-            SceneLoader.LoadMainMenu();
+            GameUI_CS.instance.HideShowSureExit();
         }
 
         if (Input.GetKey(KeyCode.I) && !gamePaused)
@@ -87,15 +88,16 @@ public class LevelManager_CS : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (gamePaused)
-                ResumeGame();
-            else
-                PauseGame();
+            //if (gamePaused)
+            //    ResumeGame();
+            //else
+            //    PauseGame();
+            GameUI_CS.instance.HideShowSureExit();
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            GameUI_CS.instance.StartEndGamePanel();
+            StartCoroutine("GameEnd");
         }
 
     }
@@ -246,13 +248,6 @@ public class LevelManager_CS : MonoBehaviour
         }
     }
 
-    IEnumerator GameEnd()
-    {
-        yield return new WaitForSecondsRealtime(0.1f);
-        GameUI_CS.instance.StartEndGamePanel();   
-        //SceneLoader.LoadMainMenu();
-    }
-
     IEnumerator GameHoldFor(int sec)
     {
         yield return new WaitForSecondsRealtime(sec);
@@ -292,5 +287,14 @@ public class LevelManager_CS : MonoBehaviour
         PlayerController.instance.StartCoroutine("HoldPlayer", seconds);
         yield return new WaitForSecondsRealtime(seconds);
         StopNPCs(true);
+    }
+    IEnumerator GameEnd()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        StartCoroutine("HoldAlltheTraffic", 5);
+        GameUI_CS.instance.StartEndGamePanel();
+        yield return new WaitForSecondsRealtime(4);
+        GameUI_CS.instance.SetEndGameButtons();
+        Time.timeScale = 0;
     }
 }

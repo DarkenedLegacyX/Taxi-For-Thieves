@@ -18,16 +18,18 @@ public class GameUI_CS : MonoBehaviour
     public GameObject[] crimIcons;
     public Slider crimSlider;
     public GameObject timer, lostCrimTxt;
-    public GameObject pausePanel;
+    public GameObject pausePanel, quitEndPanel;
     public GameObject startPanel;
     public GameObject disguiseIMG;
     public GameObject speedIMG;
     public GameObject mudIMG;
-    
+
     int playerPoints, pointsRequiredUI;
+    bool gamePaused;
 
     [Header("ENDGAME")]
     public GameObject endGamePanel;
+    public Button endGameButtonPlayAgain, endGameButtonExit;
     public Text gameOverText, pointsEndGameText, pointsMinEndText, noPointsRequiredEndText;
     private void Awake()
     {
@@ -51,6 +53,7 @@ public class GameUI_CS : MonoBehaviour
         disguiseTimer.enabled = false;
         crimSlider.value = 0;
         HideEndGamePanel();
+        gamePaused = false;
     }
 
     void FixedUpdate()
@@ -79,7 +82,7 @@ public class GameUI_CS : MonoBehaviour
 
         while (time < duration)
         {
-            playerPoints = (int)Mathf.Lerp(startValue, pointsFinal, time/ duration);
+            playerPoints = (int)Mathf.Lerp(startValue, pointsFinal, time / duration);
             pointsTxt.text = playerPoints.ToString();
             time += Time.deltaTime;
             yield return null;
@@ -111,30 +114,30 @@ public class GameUI_CS : MonoBehaviour
 
     public void SetCrimSliderAt(int crim)
     {
-        if (crim > crimIcons.Length + 1) 
+        if (crim > crimIcons.Length + 1)
             crim = crimIcons.Length + 1;
 
-        if(crim == 0)
+        if (crim == 0)
         {
             crimSlider.transform.GetChild(2).gameObject.SetActive(false);
-            foreach(GameObject crimIcon in crimIcons)
+            foreach (GameObject crimIcon in crimIcons)
             {
                 crimIcon.transform.localScale = new Vector3(1f, 1f, 1f);
             }
-        }  
+        }
         else
         {
             crimSlider.transform.GetChild(2).gameObject.SetActive(true);
             crimSlider.value = crim - 1;
             crimIcons[crim - 1].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
-            
+
     }
 
     public void SetIconToGreen(int iconIndex)
     {
         if (iconIndex < crimIcons.Length)
-            crimIcons[iconIndex].GetComponent<Image>().color = new Color32(0, 255,16, 255);
+            crimIcons[iconIndex].GetComponent<Image>().color = new Color32(0, 255, 16, 255);
     }
 
     public void SetIconToRed(int iconIndex)
@@ -144,7 +147,7 @@ public class GameUI_CS : MonoBehaviour
     }
     public void ResetIconsColor()
     {
-        foreach(GameObject icon in crimIcons)
+        foreach (GameObject icon in crimIcons)
         {
             icon.GetComponent<Image>().color = new Color32(0, 0, 0, 255);
         }
@@ -165,11 +168,11 @@ public class GameUI_CS : MonoBehaviour
 
     IEnumerator TimerCountDown(int seconds)
     {
-        while(seconds > 0)
+        while (seconds > 0)
         {
             yield return new WaitForSecondsRealtime(1);
             seconds--;
-            if(seconds < 10)
+            if (seconds < 10)
                 secondsTimerTxt.text = "0" + seconds.ToString();
             else
                 secondsTimerTxt.text = seconds.ToString();
@@ -179,7 +182,7 @@ public class GameUI_CS : MonoBehaviour
     }
     public void FreezeTimer(bool frozen)
     {
-        if(frozen)
+        if (frozen)
             StopCoroutine("TimerCountDown");
         else
             StartCoroutine("TimerCountDown", Convert.ToInt32(secondsTimerTxt.text));
@@ -199,15 +202,39 @@ public class GameUI_CS : MonoBehaviour
         pointsEndGameText.text = playerPoints.ToString();
         noPointsRequiredEndText.text = pointsRequiredUI.ToString();
 
-        if(playerPoints >= pointsRequiredUI)
+        if (playerPoints >= pointsRequiredUI)
         {
             gameOverText.text = "The End";
             pointsMinEndText.text = "The best score was: ";
             noPointsRequiredEndText.text = MaxScores.GetMaxScoreLvl(levelNo).ToString();
+            MaxScores.SaveMaxScoreLvl(playerPoints, levelNo);
         }
         RectTransform rt = endGamePanel.GetComponent<RectTransform>();
         rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, rt.rect.height);
-        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left,0, rt.rect.width);
+        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, rt.rect.width);
         endGamePanel.GetComponent<Animator>().Play("EndGameAnim");
+    }
+    public void SetEndGameButtons()
+    {
+        endGameButtonPlayAgain.gameObject.SetActive(true);
+        endGameButtonExit.gameObject.SetActive(true);
+
+        //endGameButtonPlayAgain.onClick.AddListener();
+        endGameButtonExit.onClick.AddListener(SceneLoader.LoadMainMenu);
+    }
+    public void HideShowSureExit()
+    {
+        if (!gamePaused)
+        {
+            quitEndPanel.SetActive(true);
+            gamePaused = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            quitEndPanel.SetActive(false);
+            gamePaused = false;
+            Time.timeScale = 1;
+        }
     }
 }

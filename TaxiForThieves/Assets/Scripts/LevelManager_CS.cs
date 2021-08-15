@@ -133,10 +133,7 @@ public class LevelManager_CS : MonoBehaviour
     {
         if (crimsRemaining == 0)
         {
-            if (playerPoints >= goalNuberOfPoints)
-                StartCoroutine("GameWin");
-            else
-                StartCoroutine("GameOver");
+                StartCoroutine("GameEnd");
         }
         crimsRemaining--;
 
@@ -249,18 +246,11 @@ public class LevelManager_CS : MonoBehaviour
         }
     }
 
-    IEnumerator GameOver()
+    IEnumerator GameEnd()
     {
-        GameUI_CS.instance.ShowGameOver();
-        yield return new WaitForSecondsRealtime(5);
-        SceneLoader.LoadMainMenu();
-    }
-
-    IEnumerator GameWin()
-    {
-        GameUI_CS.instance.ShowGameWin();
-        yield return new WaitForSecondsRealtime(5);
-        SceneLoader.LoadMainMenu();
+        yield return new WaitForSecondsRealtime(0.1f);
+        GameUI_CS.instance.StartEndGamePanel();   
+        //SceneLoader.LoadMainMenu();
     }
 
     IEnumerator GameHoldFor(int sec)

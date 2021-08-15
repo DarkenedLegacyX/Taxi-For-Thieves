@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class GameUI_CS : MonoBehaviour
 {
+    [Header("UI")]
+    public int levelNo;
     public static GameUI_CS instance = null;
     public Text crimText;
     public bool haveCrim = false;
-    public Text errorText, goalText, droppedOffTxt, gameOverText;
+    public Text errorText, goalText, droppedOffTxt;
     public Text minutesTimerTxt, secondsTimerTxt;
     public Text pointsTxt, pointsRequiredTxt;
     public Text disguiseTimer;
@@ -17,13 +19,16 @@ public class GameUI_CS : MonoBehaviour
     public Slider crimSlider;
     public GameObject timer, lostCrimTxt;
     public GameObject pausePanel;
-    public GameObject startPanel, endGamePanel;
+    public GameObject startPanel;
     public GameObject disguiseIMG;
     public GameObject speedIMG;
     public GameObject mudIMG;
-    int playerPoints;
     
+    int playerPoints, pointsRequiredUI;
 
+    [Header("ENDGAME")]
+    public GameObject endGamePanel;
+    public Text gameOverText, pointsEndGameText, pointsMinEndText, noPointsRequiredEndText;
     private void Awake()
     {
         if (instance == null)
@@ -85,6 +90,7 @@ public class GameUI_CS : MonoBehaviour
 
     public void UpdatePoints(int pointsRequired)
     {
+        pointsRequiredUI = pointsRequired;
         pointsTxt.text = playerPoints.ToString();
         pointsRequiredTxt.text = "/ " + pointsRequired.ToString();
     }
@@ -190,8 +196,18 @@ public class GameUI_CS : MonoBehaviour
 
     public void StartEndGamePanel()
     {
+        pointsEndGameText.text = playerPoints.ToString();
+        noPointsRequiredEndText.text = pointsRequiredUI.ToString();
+
+        if(playerPoints >= pointsRequiredUI)
+        {
+            gameOverText.text = "The End";
+            pointsMinEndText.text = "The best score was: ";
+            noPointsRequiredEndText.text = MaxScores.GetMaxScoreLvl(levelNo).ToString();
+        }
         RectTransform rt = endGamePanel.GetComponent<RectTransform>();
         rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, rt.rect.height);
-        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, rt.rect.width);
+        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left,0, rt.rect.width);
+        endGamePanel.GetComponent<Animator>().Play("EndGameAnim");
     }
 }

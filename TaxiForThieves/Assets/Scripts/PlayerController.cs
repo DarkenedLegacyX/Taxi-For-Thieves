@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject trail;
 
 
+
     private void Awake()
     {
         //if (instance == null)

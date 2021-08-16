@@ -165,7 +165,7 @@ public class Police_CS : MonoBehaviour
         {
             print("SLOWING DOWN");
             LevelManager_CS.instance.isOnMud = true;
-            chaseSpeed = 0;
+            chaseSpeed = 3;
         }
 
         if (other.CompareTag("Player") && LevelManager_CS.instance.playerhasCrim)
@@ -184,7 +184,7 @@ public class Police_CS : MonoBehaviour
         {
             print("SPEEDING UP");
             LevelManager_CS.instance.isOnMud = false;
-            chaseSpeed = 7;
+            chaseSpeed = 15;
         }
 
     }

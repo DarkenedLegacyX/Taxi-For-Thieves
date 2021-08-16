@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
 
     public Button playButton, howToButton, exitButton, resetScores;
     public Button lvl1Button, lvl2Button, lvl3Button, backlvlButton;
+    public Button closeHowTo, nextPageButton, prevPageButton;
     public Text highScoreLvl1, highScoreLvl2, highScoreLvl3;
     Animator mainButtonsAnimator, levelSelectAnimator;
     public bool unlockAllLevels;
@@ -18,8 +19,12 @@ public class MenuManager : MonoBehaviour
     public GameObject lvl2ButtonCage, lvl3ButtonCage;
     public GameObject mainButtons, levelSelectButtons;
     public GameObject loadingPanel;
+    public GameObject howToPanel;
+    public GameObject[] howToPage;
     public Slider loadingSlider;
+    public bool page0, page1, page2, page3;
 
+    int currentPage = 1;
     private void Awake()
     {
         //if (instance == null)
@@ -37,11 +42,13 @@ public class MenuManager : MonoBehaviour
     {
         mainButtons.gameObject.SetActive(true);
         levelSelectButtons.gameObject.SetActive(true);
+
         mainButtonsAnimator = mainButtons.transform.GetComponent<Animator>();
         levelSelectAnimator = levelSelectButtons.transform.GetComponent<Animator>();
         playButton.onClick.AddListener(PlayButtonClick);
-        //howToButton.onClick.AddListener(HowToPlayOpen);
-        //closeHowTo.onClick.AddListener(HowToPlayClose);
+        howToButton.onClick.AddListener(HowToPlayOpen);
+        nextPageButton.onClick.AddListener(nextPage);
+        closeHowTo.onClick.AddListener(HowToPlayClose);
         exitButton.onClick.AddListener(ExitGame);
         backlvlButton.onClick.AddListener(BackButtonClick);
         loadingPanel.SetActive(false);
@@ -76,11 +83,62 @@ public class MenuManager : MonoBehaviour
 
     void HowToPlayOpen()
     {
-
+        page0 = true;
+        howToPage[0].SetActive(true);
+        howToPage[1].SetActive(false);
+        howToPage[2].SetActive(false);
+        howToPage[3].SetActive(false);
+        mainButtons.SetActive(false);
+        howToPanel.SetActive(true);
     }
 
     void HowToPlayClose()
     {
+
+        page0 = false;
+        page1 = false;
+        page2 = false;
+        page3 = false;
+        howToPage[0].SetActive(false);
+        howToPage[1].SetActive(false);
+        howToPage[2].SetActive(false);
+        howToPage[3].SetActive(false);
+        mainButtons.SetActive(true);
+        howToPanel.SetActive(false);
+    }
+
+    void nextPage()
+    {
+
+        if (page0 == true)
+        {
+            page0 = false;
+            page1 = true;
+            howToPage[0].SetActive(false);
+            howToPage[1].SetActive(true);
+
+        }
+        else if (page1 == true)
+        {
+            page1 = false;
+            page2 = true;
+            howToPage[1].SetActive(false);
+            howToPage[2].SetActive(true);
+        }
+        else if (page2 == true)
+        {
+            page2 = false;
+            page3 = true;
+            howToPage[2].SetActive(false);
+            howToPage[3].SetActive(true);
+        }
+        else if (page3 == true)
+        {
+            page0 = true;
+            page3 = false;
+            howToPage[3].SetActive(false);
+            howToPage[0].SetActive(true);
+        }
 
     }
 

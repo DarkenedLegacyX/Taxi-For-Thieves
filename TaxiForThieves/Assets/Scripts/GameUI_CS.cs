@@ -19,13 +19,16 @@ public class GameUI_CS : MonoBehaviour
     public Slider crimSlider;
     public GameObject timer, lostCrimTxt;
     public GameObject pausePanel, quitEndPanel;
-    public GameObject startPanel;
     public GameObject disguiseIMG;
     public GameObject speedIMG;
     public GameObject mudIMG;
 
     int playerPoints, pointsRequiredUI;
     bool gamePaused;
+
+    [Header("STARTGAME")]
+    public GameObject startPanel;
+    public Text startLevelText, pstartPointsRequiredText;
 
     [Header("ENDGAME")]
     public GameObject endGamePanel;
@@ -54,6 +57,8 @@ public class GameUI_CS : MonoBehaviour
         crimSlider.value = 0;
         HideEndGamePanel();
         gamePaused = false;
+        startLevelText.text = "Level " + levelNo.ToString();
+        pstartPointsRequiredText.text = LevelManager_CS.instance.goalNuberOfPoints.ToString();
     }
 
     void FixedUpdate()

@@ -133,17 +133,20 @@ public class LevelManager_CS : MonoBehaviour
 
     public void SpawnACrim()
     {
+        
         if (crimsRemaining == 0)
         {
                 StartCoroutine("GameEnd");
         }
+        else
+        {
+            Instantiate(crim, spawns[currentCrimIndex]);
+            crimModel = !crimModel;
+
+            PlayerController.instance.indicatorTarget = spawns[currentCrimIndex].transform.position;
+            print("Crim location arrow.");
+        }
         crimsRemaining--;
-
-        Instantiate(crim, spawns[currentCrimIndex]);
-        crimModel = !crimModel;
-
-        PlayerController.instance.indicatorTarget = spawns[currentCrimIndex].transform.position;
-        print("Crim location arrow.");
     }
 
     public GameObject GetDropOff()

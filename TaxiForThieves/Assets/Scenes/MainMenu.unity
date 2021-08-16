@@ -38035,7 +38035,7 @@ MonoBehaviour:
   mainButtonsAnimator: {fileID: 22551405}
   levelSelectAnimator: {fileID: 64608859}
   unlockAllLevels: 0
-  scoreToUnlockLvl2: 3000
+  scoreToUnlockLvl2: 700
   scoreToUnlockLvl3: 1000
   lvl2ButtonCage: {fileID: 1175086444}
   lvl3ButtonCage: {fileID: 1916984040}

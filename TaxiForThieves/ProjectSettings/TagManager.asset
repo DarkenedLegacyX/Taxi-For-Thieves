@@ -9,6 +9,7 @@ TagManager:
   - Cop
   - Powerup
   - NpcCar
+  - Mud
   layers:
   - Default
   - TransparentFX

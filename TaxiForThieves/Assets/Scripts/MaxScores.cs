@@ -24,4 +24,10 @@ public static class MaxScores
         }
         
     }
+    public static void ResetScores()
+    {
+        PlayerPrefs.SetInt(levelName + "1", 0);
+        PlayerPrefs.SetInt(levelName + "2", 0);
+        PlayerPrefs.SetInt(levelName + "3", 0);
+    }
 }

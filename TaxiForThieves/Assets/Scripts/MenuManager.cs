@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public Button playButton, howToButton, exitButton;
+    public Button playButton, howToButton, exitButton, resetScores;
     public Button lvl1Button, lvl2Button, lvl3Button, backlvlButton;
     public Text highScoreLvl1, highScoreLvl2, highScoreLvl3;
     public Animator mainButtonsAnimator, levelSelectAnimator;
@@ -20,14 +21,18 @@ public class MenuManager : MonoBehaviour
         exitButton.onClick.AddListener(ExitGame);
         backlvlButton.onClick.AddListener(BackButtonClick);
         UnlockLevels();
-        MaxScores.SaveMaxScoreLvl(2000, 1);
+        //MaxScores.SaveMaxScoreLvl(2000, 1);
+        //MaxScores.SaveMaxScoreLvl(3000,2);
+        lvl1Button.onClick.AddListener(delegate { SceneLoader.LoadLevel(1); });
+        lvl2Button.onClick.AddListener(delegate { SceneLoader.LoadLevel(2); });
+        lvl3Button.onClick.AddListener(delegate { SceneLoader.LoadLevel(3); });
+        resetScores.onClick.AddListener(ResetButtonClick);
     }
 
     void PlayButtonClick()
     {
         mainButtonsAnimator.Play("MainMenuAnimationSlideout");
         levelSelectAnimator.Play("LevelSelectButtonsAnimSlideIn");
-        //SceneLoader.LoadLevel(1);
         UnlockLevels();
         RefreshHighScores();
     }
@@ -35,7 +40,12 @@ public class MenuManager : MonoBehaviour
     {
         mainButtonsAnimator.Play("MainMenuAnimationSlidein");
         levelSelectAnimator.Play("LevelSelectButtonsAnimSlideOut");
-        //SceneLoader.LoadLevel(1);
+    }
+    void ResetButtonClick()
+    {
+        MaxScores.ResetScores();
+        UnlockLevels();
+        RefreshHighScores();
     }
 
     void HowToPlayOpen()

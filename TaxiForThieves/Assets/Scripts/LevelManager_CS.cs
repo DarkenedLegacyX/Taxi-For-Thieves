@@ -28,6 +28,7 @@ public class LevelManager_CS : MonoBehaviour
     [Header("CAM")]
     public Transform cameraStartPosition;
     public CinemachineVirtualCamera cam;
+    public bool isOnMud = false;
 
     [Header("RADAR")]
     public Transform radarRotate;

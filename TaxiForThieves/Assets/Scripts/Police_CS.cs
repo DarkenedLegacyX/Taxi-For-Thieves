@@ -25,6 +25,7 @@ public class Police_CS : MonoBehaviour
 
     public float chaseSpeed, patrolSpeed;
 
+
     private void Awake()
     {
         //if (instance == null)
@@ -126,11 +127,11 @@ public class Police_CS : MonoBehaviour
             agent.SetDestination(player.transform.position);
 
             float dist = Vector3.Distance(this.transform.position, player.transform.position);
-            if (dist < 50)
+            if (dist < 50 && LevelManager_CS.instance.isOnMud == false)
             {
                 chaseSpeed = 15;
             }
-            else
+            else if (dist > 50 && LevelManager_CS.instance.isOnMud == false)
             {
                 print("Out of view, Speeding up!");
                 chaseSpeed = 25;
@@ -160,6 +161,13 @@ public class Police_CS : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Mud"))
+        {
+            print("SLOWING DOWN");
+            LevelManager_CS.instance.isOnMud = true;
+            chaseSpeed = 0;
+        }
+
         if (other.CompareTag("Player") && LevelManager_CS.instance.playerhasCrim)
         {
             //StopAllCoroutines();
@@ -168,5 +176,16 @@ public class Police_CS : MonoBehaviour
             LevelManager_CS.instance.playerhasCrim = false;
             GameUI_CS.instance.haveCrim = false;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Mud"))
+        {
+            print("SPEEDING UP");
+            LevelManager_CS.instance.isOnMud = false;
+            chaseSpeed = 7;
+        }
+
     }
 }

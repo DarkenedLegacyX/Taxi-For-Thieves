@@ -5,41 +5,67 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
+    
 {
+    public static MenuManager instance = null;
+
     public Button playButton, howToButton, exitButton, resetScores;
     public Button lvl1Button, lvl2Button, lvl3Button, backlvlButton;
     public Text highScoreLvl1, highScoreLvl2, highScoreLvl3;
-    public Animator mainButtonsAnimator, levelSelectAnimator;
+    Animator mainButtonsAnimator, levelSelectAnimator;
     public bool unlockAllLevels;
     public int scoreToUnlockLvl2, scoreToUnlockLvl3;
     public GameObject lvl2ButtonCage, lvl3ButtonCage;
+    public GameObject mainButtons, levelSelectButtons;
+    public GameObject loadingPanel;
+    public Slider loadingSlider;
+
+    private void Awake()
+    {
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else if (instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
+
+        //DontDestroyOnLoad(gameObject);
+    }
     void Start()
     {
+        mainButtons.gameObject.SetActive(true);
+        levelSelectButtons.gameObject.SetActive(true);
+        mainButtonsAnimator = mainButtons.transform.GetComponent<Animator>();
+        levelSelectAnimator = levelSelectButtons.transform.GetComponent<Animator>();
         playButton.onClick.AddListener(PlayButtonClick);
         //howToButton.onClick.AddListener(HowToPlayOpen);
         //closeHowTo.onClick.AddListener(HowToPlayClose);
         exitButton.onClick.AddListener(ExitGame);
         backlvlButton.onClick.AddListener(BackButtonClick);
+        loadingPanel.SetActive(false);
         UnlockLevels();
         //MaxScores.SaveMaxScoreLvl(2000, 1);
         //MaxScores.SaveMaxScoreLvl(3000,2);
-        lvl1Button.onClick.AddListener(delegate { SceneLoader.LoadLevel(1); });
-        lvl2Button.onClick.AddListener(delegate { SceneLoader.LoadLevel(2); });
-        lvl3Button.onClick.AddListener(delegate { SceneLoader.LoadLevel(3); });
+        lvl1Button.onClick.AddListener(delegate { SceneLoader.instance.LoadLevelAsync(1, loadingPanel, loadingSlider); });
+        lvl2Button.onClick.AddListener(delegate { SceneLoader.instance.LoadLevelAsync(2, loadingPanel, loadingSlider); });
+        lvl3Button.onClick.AddListener(delegate { SceneLoader.instance.LoadLevelAsync(3, loadingPanel, loadingSlider); });
         resetScores.onClick.AddListener(ResetButtonClick);
     }
 
     void PlayButtonClick()
     {
-        mainButtonsAnimator.Play("MainMenuAnimationSlideout");
-        levelSelectAnimator.Play("LevelSelectButtonsAnimSlideIn");
+        mainButtonsAnimator.SetTrigger("slideOut");
+        levelSelectAnimator.SetTrigger("slideIn");
         UnlockLevels();
         RefreshHighScores();
     }
     void BackButtonClick()
     {
-        mainButtonsAnimator.Play("MainMenuAnimationSlidein");
-        levelSelectAnimator.Play("LevelSelectButtonsAnimSlideOut");
+        levelSelectAnimator.SetTrigger("slideOut");
+        mainButtonsAnimator.SetTrigger("slideIn");
+        
     }
     void ResetButtonClick()
     {

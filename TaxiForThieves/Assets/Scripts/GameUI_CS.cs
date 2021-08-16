@@ -225,7 +225,7 @@ public class GameUI_CS : MonoBehaviour
         endGameButtonExit.gameObject.SetActive(true);
 
         //endGameButtonPlayAgain.onClick.AddListener();
-        endGameButtonExit.onClick.AddListener(SceneLoader.LoadMainMenu);
+        endGameButtonExit.onClick.AddListener(SceneLoader.instance.LoadMainMenu);
     }
     public void HideShowSureExit()
     {

@@ -8,7 +8,7 @@ public class GamePausedPanel : MonoBehaviour
     public Button exitButton, resumeButton;
     void Start()
     {
-        exitButton.onClick.AddListener(SceneLoader.LoadMainMenu);
+        exitButton.onClick.AddListener(SceneLoader.instance.LoadMainMenu);
         resumeButton.onClick.AddListener(GameUI_CS.instance.HideShowSureExit);
     }
 

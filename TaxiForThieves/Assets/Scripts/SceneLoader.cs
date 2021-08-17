@@ -22,8 +22,8 @@ public class SceneLoader : MonoBehaviour
     public void LoadLevelAsync(int level, GameObject loadingPanel, Slider loadingSlider)
     {
         string levelName = "Level" + level.ToString();
-        //instance.StartCoroutine(LoadSceneAsync(levelName, loadingPanel, loadingSlider));
-        instance.StartCoroutine(LoadSceneAsync("CarScene", loadingPanel, loadingSlider));
+        instance.StartCoroutine(LoadSceneAsync(levelName, loadingPanel, loadingSlider));
+        //instance.StartCoroutine(LoadSceneAsync("CarScene", loadingPanel, loadingSlider));
         //SceneManager.LoadScene("CarScene");
     }
     public void LoadMainMenu()

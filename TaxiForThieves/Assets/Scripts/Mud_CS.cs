@@ -21,7 +21,7 @@ public class Mud_CS : MonoBehaviour
         yield return new WaitForSeconds(10f);
         print("SPEEDING BACK UP AFTER DESTORY");
         LevelManager_CS.instance.isOnMud = false;
-        LevelManager_CS.instance.SetAllPoliceChaseSpeed(16);
+        LevelManager_CS.instance.SetAllPoliceChaseSpeed(15);
 
         Destroy(gameObject);
     }

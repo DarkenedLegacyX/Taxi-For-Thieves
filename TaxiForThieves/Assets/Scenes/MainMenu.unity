@@ -7780,7 +7780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &428413796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42561,8 +42561,8 @@ MonoBehaviour:
   highScoreLvl2: {fileID: 1620175428}
   highScoreLvl3: {fileID: 337666339}
   unlockAllLevels: 0
-  scoreToUnlockLvl2: 700
-  scoreToUnlockLvl3: 1000
+  scoreToUnlockLvl2: 200
+  scoreToUnlockLvl3: 650
   lvl2ButtonCage: {fileID: 1175086444}
   lvl3ButtonCage: {fileID: 1916984040}
   mainButtons: {fileID: 22551403}
@@ -42574,6 +42574,7 @@ MonoBehaviour:
   - {fileID: 525703265}
   - {fileID: 855422592}
   - {fileID: 97684882}
+  logo: {fileID: 428413795}
   loadingSlider: {fileID: 279370356}
   page0: 0
   page1: 0

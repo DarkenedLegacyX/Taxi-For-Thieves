@@ -108,10 +108,12 @@ public class Police_CS : MonoBehaviour
 
     IEnumerator ReturnToSpawn(Vector3 spawnPoint)
     {
+        agent.speed = 20;
         print("Returning to spawn!");
         float distance = Vector3.Distance(transform.position, spawnPoint);
         agent.SetDestination(spawnPoint);
         yield return new WaitForSeconds(1f);
+
         StartCoroutine("FindPatrolPoint");
     }
 
@@ -134,7 +136,7 @@ public class Police_CS : MonoBehaviour
             else if (dist > 50 && LevelManager_CS.instance.isOnMud == false)
             {
                 print("Out of view, Speeding up!");
-                chaseSpeed = 25;
+                chaseSpeed = 20;
             }
 
             yield return new WaitForSeconds(0.2f);

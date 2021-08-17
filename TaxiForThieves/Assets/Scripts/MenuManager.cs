@@ -21,6 +21,7 @@ public class MenuManager : MonoBehaviour
     public GameObject loadingPanel;
     public GameObject howToPanel;
     public GameObject[] howToPage;
+    public GameObject logo;
     public Slider loadingSlider;
     public bool page0, page1, page2, page3;
 
@@ -42,7 +43,7 @@ public class MenuManager : MonoBehaviour
     {
         mainButtons.gameObject.SetActive(true);
         levelSelectButtons.gameObject.SetActive(true);
-
+        logo.SetActive(true);
         mainButtonsAnimator = mainButtons.transform.GetComponent<Animator>();
         levelSelectAnimator = levelSelectButtons.transform.GetComponent<Animator>();
         playButton.onClick.AddListener(PlayButtonClick);
@@ -83,6 +84,7 @@ public class MenuManager : MonoBehaviour
 
     void HowToPlayOpen()
     {
+        logo.SetActive(false);
         page0 = true;
         howToPage[0].SetActive(true);
         howToPage[1].SetActive(false);
@@ -94,7 +96,7 @@ public class MenuManager : MonoBehaviour
 
     void HowToPlayClose()
     {
-
+        logo.SetActive(true);
         page0 = false;
         page1 = false;
         page2 = false;

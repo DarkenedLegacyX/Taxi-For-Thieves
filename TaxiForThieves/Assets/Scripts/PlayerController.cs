@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (mudPower == true)
                 {
-
+                    SoundManager_CS.instance.PlayMudSound();
                     Instantiate(mudObject, this.transform.position, this.transform.rotation);
                     print("Used mud!");
                     GameUI_CS.instance.mudIMG.SetActive(false);
@@ -131,7 +131,6 @@ public class PlayerController : MonoBehaviour
                 }
                 if (disguisePower == true)
                 {
-                    //Instantiate(mudObject, this.transform.position, this.transform.rotation);
                     print("Used Diguise!");
                     disguisePower = false;
                     StartCoroutine("ActivateDisguise");
@@ -250,7 +249,7 @@ public class PlayerController : MonoBehaviour
 
     public void SpeedBoost(int time)
     {
-
+        SoundManager_CS.instance.SpeedBoostSound();
         isBoosted = true;
         StartCoroutine(SpeedUpFor(time, 0.33f));
     }
@@ -291,6 +290,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ActivateDisguise()
     {
+        SoundManager_CS.instance.PlayDisguiseSound();
         //LevelManager_CS.instance.playerhasCrim = false;
         LevelManager_CS.instance.playerIsDisguised = true;
 
@@ -342,6 +342,7 @@ public class PlayerController : MonoBehaviour
 
     public void PoofPoliceGotUs()
     {
+        SoundManager_CS.instance.PlayPoliceGotUsSound();
         poofPolice.SetActive(true);
     }
 }

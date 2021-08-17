@@ -158,15 +158,19 @@ public class LevelManager_CS : MonoBehaviour
 
     public void CrimPickedUp()
     {
+        SoundManager_CS.instance.PlayCrimPickupSound();
         currentCrimIndex++;
         playerhasCrim = true;
         GameUI_CS.instance.haveCrim = true;
         GameUI_CS.instance.StartTimer(Random.Range(timerMinPickupSec, timerMaxSecPickupSec));
         PlayerController.instance.indicatorTarget = currentDropOff.transform.position;
         GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
+        SoundManager_CS.instance.PlayPoliceSirensSound(true);
     }
     public void CrimDroppedOff()
     {
+        SoundManager_CS.instance.PlayPoliceSirensSound(false);
+        SoundManager_CS.instance.PlayDropOffSound();
         crimsDroppedOff++;
         playerhasCrim = false;
         SpawnACrim();
@@ -179,6 +183,7 @@ public class LevelManager_CS : MonoBehaviour
 
     public void ResetPlayerLost()
     {
+        SoundManager_CS.instance.PlayPoliceSirensSound(false);
         playerhasCrim = false;
         GameUI_CS.instance.StopTimer();
         PlayerController.instance.PoofPoliceGotUs();
@@ -294,8 +299,8 @@ public class LevelManager_CS : MonoBehaviour
     }
     IEnumerator GameEnd()
     {
-        yield return new WaitForSecondsRealtime(0.1f);
-        StartCoroutine("HoldAlltheTraffic", 5);
+        yield return new WaitForSecondsRealtime(2f);
+        StartCoroutine("HoldAlltheTraffic", 7);
         GameUI_CS.instance.StartEndGamePanel();
         yield return new WaitForSecondsRealtime(4);
         GameUI_CS.instance.SetEndGameButtons();

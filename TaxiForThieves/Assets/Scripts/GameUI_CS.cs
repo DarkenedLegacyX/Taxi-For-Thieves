@@ -59,6 +59,7 @@ public class GameUI_CS : MonoBehaviour
         gamePaused = false;
         startLevelText.text = "Level " + levelNo.ToString();
         pstartPointsRequiredText.text = LevelManager_CS.instance.goalNuberOfPoints.ToString();
+        SoundManager_CS.instance.StartMusic();
     }
 
     void FixedUpdate()
@@ -68,6 +69,7 @@ public class GameUI_CS : MonoBehaviour
 
     IEnumerator ShowLostCrimText()
     {
+        SoundManager_CS.instance.PlayJailSound();
         lostCrimTxt.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(3);
         lostCrimTxt.gameObject.SetActive(false);
@@ -206,6 +208,7 @@ public class GameUI_CS : MonoBehaviour
     {
         pointsEndGameText.text = playerPoints.ToString();
         noPointsRequiredEndText.text = pointsRequiredUI.ToString();
+        SoundManager_CS.instance.PlayEndGameSound();
 
         if (playerPoints >= pointsRequiredUI)
         {

@@ -41,12 +41,15 @@ public class Powerup_CS : MonoBehaviour
 
         if (other.CompareTag("Powerup"))
         {
+            
             pickupVFX.transform.position = other.transform.position;
             if (isCollected == false)
             {
+                SoundManager_CS.instance.PlayPickupSound();
                 ranNum = Random.Range(1, 101);
                 if (ranNum >= 1 && ranNum <= 20)
-                {                    
+                {      
+                    
                     print("Disguise!");
                     
                     GameUI_CS.instance.disguiseIMG.SetActive(true);

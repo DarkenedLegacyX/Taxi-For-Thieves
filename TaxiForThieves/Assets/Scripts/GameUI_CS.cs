@@ -22,6 +22,7 @@ public class GameUI_CS : MonoBehaviour
     public GameObject disguiseIMG;
     public GameObject speedIMG;
     public GameObject mudIMG;
+    public GameObject objectiveDropOff;
 
     int playerPoints, pointsRequiredUI;
     bool gamePaused;
@@ -51,7 +52,7 @@ public class GameUI_CS : MonoBehaviour
         disguiseIMG.SetActive(false);
         speedIMG.SetActive(false);
         mudIMG.SetActive(false);
-
+        objectiveDropOff.SetActive(false);
         startPanel.SetActive(true);
         disguiseTimer.enabled = false;
         crimSlider.value = 0;
@@ -244,5 +245,12 @@ public class GameUI_CS : MonoBehaviour
             gamePaused = false;
             Time.timeScale = 1;
         }
+    }
+
+    IEnumerator ShowObjective()
+    {
+        objectiveDropOff.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        objectiveDropOff.SetActive(false);
     }
 }

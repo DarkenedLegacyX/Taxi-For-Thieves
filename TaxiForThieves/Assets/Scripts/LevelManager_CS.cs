@@ -166,6 +166,7 @@ public class LevelManager_CS : MonoBehaviour
         PlayerController.instance.indicatorTarget = currentDropOff.transform.position;
         GameUI_CS.instance.SetCrimSliderAt(currentCrimIndex);
         SoundManager_CS.instance.PlayPoliceSirensSound(true);
+        GameUI_CS.instance.StartCoroutine("ShowObjective");
     }
     public void CrimDroppedOff()
     {

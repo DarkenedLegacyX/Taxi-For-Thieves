@@ -16,7 +16,7 @@ public class RotateRadar : MonoBehaviour
     void Update()
     {
         //this.transform.Rotate(0,0,1 * Time.deltaTime);
-        if(LevelManager_CS.instance.playerhasCrim == true)
+        if(LevelManager_CS.instance.playerhasCrim == true && LevelManager_CS.instance.playerIsDisguised == false)
         {
             print("Test");
             animator.SetBool("HasCrim", true);

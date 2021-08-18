@@ -91,7 +91,56 @@ public class Powerup_CS : MonoBehaviour
             }
             else
             {
-                print("Powerup, already picked up!");
+                print("Picking different powerup!");
+                PlayerController.instance.mudPower = false;
+                PlayerController.instance.speedPower = false;
+                PlayerController.instance.disguisePower = false;
+                GameUI_CS.instance.disguiseIMG.SetActive(false);
+                GameUI_CS.instance.speedIMG.SetActive(false);
+                GameUI_CS.instance.mudIMG.SetActive(false);
+
+                SoundManager_CS.instance.PlayPickupSound();
+                ranNum = Random.Range(1, 101);
+                if (ranNum >= 1 && ranNum <= 20)
+                {
+
+                    print("Disguise!");
+
+                    GameUI_CS.instance.disguiseIMG.SetActive(true);
+                    PlayerController.instance.disguisePower = true;
+                    //Destroy(gameObject);
+                    //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
+                    StartCoroutine(Respawn(other));
+                    StartCoroutine("ResetPowerUpVFX");
+                }
+                else if (ranNum >= 21 && ranNum <= 60)
+                {
+                    print("Speed!");
+                    GameUI_CS.instance.speedIMG.SetActive(true);
+                    PlayerController.instance.speedPower = true;
+                    //Destroy(gameObject);
+                    //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
+                    StartCoroutine(Respawn(other));
+                    StartCoroutine("ResetPowerUpVFX");
+                }
+                else if (ranNum >= 61 && ranNum <= 100)
+                {
+                    print("Mud!");
+                    GameUI_CS.instance.mudIMG.SetActive(true);
+                    PlayerController.instance.mudPower = true;
+                    //Destroy(gameObject);
+                    //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
+                    StartCoroutine(Respawn(other));
+                    StartCoroutine("ResetPowerUpVFX");
+                }
+                else
+                {
+                    print("What?");
+                    //Destroy(gameObject);
+                    //PowerPickedUp_CS.instance.StartCoroutine("PlayEffects");
+                    StartCoroutine(Respawn(other));
+                    StartCoroutine("ResetPowerUpVFX");
+                }
             }
 
 

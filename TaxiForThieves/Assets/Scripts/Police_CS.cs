@@ -129,11 +129,11 @@ public class Police_CS : MonoBehaviour
             agent.SetDestination(player.transform.position);
 
             float dist = Vector3.Distance(this.transform.position, player.transform.position);
-            if (dist < 50 && LevelManager_CS.instance.isOnMud == false)
+            if (dist < 70 && LevelManager_CS.instance.isOnMud == false)
             {
                 chaseSpeed = 15;
             }
-            else if (dist > 50 && LevelManager_CS.instance.isOnMud == false)
+            else if (dist > 70 && LevelManager_CS.instance.isOnMud == false)
             {
                 print("Out of view, Speeding up!");
                 chaseSpeed = 20;

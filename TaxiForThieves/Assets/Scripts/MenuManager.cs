@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
     public Button playButton, howToButton, exitButton, resetScores;
     public Button lvl1Button, lvl2Button, lvl3Button, backlvlButton;
     public Button closeHowTo, nextPageButton, prevPageButton;
+    public Button creditsBtn, creditsCloseBtn;
     public Text highScoreLvl1, highScoreLvl2, highScoreLvl3;
     Animator mainButtonsAnimator, levelSelectAnimator;
     public bool unlockAllLevels;
@@ -22,6 +23,7 @@ public class MenuManager : MonoBehaviour
     public GameObject howToPanel;
     public GameObject[] howToPage;
     public GameObject logo;
+    public GameObject credits;
     public Slider loadingSlider;
     public bool page0, page1, page2, page3;
 
@@ -49,9 +51,12 @@ public class MenuManager : MonoBehaviour
         playButton.onClick.AddListener(PlayButtonClick);
         howToButton.onClick.AddListener(HowToPlayOpen);
         nextPageButton.onClick.AddListener(nextPage);
+        prevPageButton.onClick.AddListener(prevPage);
         closeHowTo.onClick.AddListener(HowToPlayClose);
         exitButton.onClick.AddListener(ExitGame);
         backlvlButton.onClick.AddListener(BackButtonClick);
+        creditsBtn.onClick.AddListener(CreditsClick);
+        creditsCloseBtn.onClick.AddListener(CreditsClose);
         loadingPanel.SetActive(false);
         UnlockLevels();
         //MaxScores.SaveMaxScoreLvl(2000, 1);
@@ -142,6 +147,55 @@ public class MenuManager : MonoBehaviour
             howToPage[0].SetActive(true);
         }
 
+    }
+
+    void prevPage()
+    {
+
+        if (page0 == true)
+        {
+            page0 = false;
+            page3 = true;
+            howToPage[0].SetActive(false);
+            howToPage[3].SetActive(true);
+
+        }
+        else if (page1 == true)
+        {
+            page1 = false;
+            page0 = true;
+            howToPage[1].SetActive(false);
+            howToPage[0].SetActive(true);
+        }
+        else if (page2 == true)
+        {
+            page2 = false;
+            page1 = true;
+            howToPage[2].SetActive(false);
+            howToPage[1].SetActive(true);
+        }
+        else if (page3 == true)
+        {
+            page2 = true;
+            page3 = false;
+            howToPage[3].SetActive(false);
+            howToPage[2].SetActive(true);
+        }
+
+    }
+
+    void CreditsClick()
+    {
+        mainButtons.SetActive(false);
+        credits.SetActive(true);
+        logo.SetActive(false);
+
+    }
+    void CreditsClose()
+    {
+        credits.SetActive(false);
+        mainButtons.SetActive(true);
+        logo.SetActive(true);
     }
 
     void UnlockLevels()

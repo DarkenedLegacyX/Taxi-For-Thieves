@@ -313,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 8273247402170840270}
     - target: {fileID: 2738048053876228209, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: chaseSpeed
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2738048053876228209, guid: abe6fe997af583c479b662aa1b9789f5, type: 3}
       propertyPath: patrolSpeed

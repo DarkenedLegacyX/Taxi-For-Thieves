@@ -131,7 +131,7 @@ public class Police_CS : MonoBehaviour
             float dist = Vector3.Distance(this.transform.position, player.transform.position);
             if (dist < 70 && LevelManager_CS.instance.isOnMud == false)
             {
-                chaseSpeed = 15;
+                chaseSpeed = 14;
             }
             else if (dist > 70 && LevelManager_CS.instance.isOnMud == false)
             {
@@ -186,7 +186,7 @@ public class Police_CS : MonoBehaviour
         {
             print("SPEEDING UP");
             LevelManager_CS.instance.isOnMud = false;
-            chaseSpeed = 15;
+            chaseSpeed = 14;
         }
 
     }

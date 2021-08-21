@@ -78,28 +78,28 @@ public class LevelManager_CS : MonoBehaviour
             GameUI_CS.instance.HideShowSureExit();
         }
 
-        if (Input.GetKey(KeyCode.I) && !gamePaused)
-        {
-            PlayerController.instance.ResetPosition();
-            cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
-        }
-        if (Input.GetKeyDown(KeyCode.O) && !gamePaused)
-        {
-            AddPoints(100);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            //if (gamePaused)
-            //    ResumeGame();
-            //else
-            //    PauseGame();
-            GameUI_CS.instance.HideShowSureExit();
-        }
+        //if (Input.GetKey(KeyCode.I) && !gamePaused)
+        //{
+        //    PlayerController.instance.ResetPosition();
+        //    cam.ForceCameraPosition(cameraStartPosition.position, Quaternion.Euler(new Vector3(cameraStartPosition.rotation.eulerAngles.x, 0, 0)));
+        //}
+        //if (Input.GetKeyDown(KeyCode.O) && !gamePaused)
+        //{
+        //    AddPoints(100);
+        //}
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    //if (gamePaused)
+        //    //    ResumeGame();
+        //    //else
+        //    //    PauseGame();
+        //    GameUI_CS.instance.HideShowSureExit();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartCoroutine("GameEnd");
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    StartCoroutine("GameEnd");
+        //}
 
     }
     void PauseGame()

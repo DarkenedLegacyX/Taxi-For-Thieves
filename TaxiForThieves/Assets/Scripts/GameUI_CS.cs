@@ -225,7 +225,7 @@ public class GameUI_CS : MonoBehaviour
     }
     public void SetEndGameButtons()
     {
-        endGameButtonPlayAgain.gameObject.SetActive(true);
+        //endGameButtonPlayAgain.gameObject.SetActive(true);
         endGameButtonExit.gameObject.SetActive(true);
 
         //endGameButtonPlayAgain.onClick.AddListener();

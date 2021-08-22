@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637648242186846713
-    m_Hash: 3615476077
+      ticks: 637651358033867954
+    m_Hash: 3415728084
   m_LockFileStatus:
     m_FilePath: C:/Users/Dines/OneDrive/Desktop/AIT/Advanced Game Project/Taxi-For-Thieves/TaxiForThieves/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637648242186916450
-    m_Hash: 2893390722
+      ticks: 637651358033877923
+    m_Hash: 2673496060
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
